@@ -986,13 +986,14 @@ const deckApi = (function () {
     dlg.classList.remove("closing");
     if (!dlg.open) dlg.showModal();
     windowOpen = true;
+    stop(); // freeze the deck behind the window: the blurred backdrop is then drawn once, not every frame
     dlg.scrollTop = 0;
     try { history.replaceState(null, "", "#" + slug(p.title)); } catch (e) {}
     if (!still) setTimeout(() => {
       playCard(art);
       const f = art.querySelector(".flow-fig");
       if (f) f.classList.add("run");
-    }, 260);
+    }, 480); // after the 460ms opening animation
   }
   function closeProject() {
     if (!dlg.open) return;
@@ -1002,6 +1003,7 @@ const deckApi = (function () {
   }
   dlg.addEventListener("close", () => {
     windowOpen = false;
+    start();
     try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {}
   });
   dlg.addEventListener("cancel", e => { e.preventDefault(); closeProject(); });   // Esc
@@ -1063,7 +1065,8 @@ const deckApi = (function () {
   let rot = 0, vel = 0, target = null, r = 500, liftScale = 1;
   let userPaused = still, hovering = false, focusInside = false, dragging = false, dragMoved = false;
   let visible = true, running = false, raf = 0;
-  let mx = 0, my = 0, tiltX = -7;  // cursor position over the deck (-1..1) and current ring tilt
+  let mx = 0, my = 0, tiltX = -7;
+  let drawnRot = NaN, drawnTilt = NaN;  // last values drawn, to skip frames where nothing moved  // cursor position over the deck (-1..1) and current ring tilt
 
   function measure() {
     const w = parseFloat(getComputedStyle(deckEl).getPropertyValue("--card-w")) || 220;
@@ -1072,6 +1075,7 @@ const deckApi = (function () {
     render();
   }
   function render() {
+    drawnRot = rot; drawnTilt = tiltX;
     ring.style.transform = "translateZ(" + -r + "px) rotateX(" + tiltX.toFixed(2) + "deg)";
     for (let i = 0; i < n; i++) {
       const a = ((((i * step + rot) % 360) + 540) % 360) - 180;     // -180..180, 0 = facing you
@@ -1101,10 +1105,10 @@ const deckApi = (function () {
     }
     const wantTilt = hovering && !still ? -7 - my * 6 : -7;  // cursor up/down tilts the ring a little
     tiltX += (wantTilt - tiltX) * 0.08;
-    render();
+    if (Math.abs(rot - drawnRot) > 0.001 || Math.abs(tiltX - drawnTilt) > 0.001) render();
     raf = requestAnimationFrame(frame);
   }
-  function start() { if (!running && visible && !document.hidden) { running = true; raf = requestAnimationFrame(frame); } }
+  function start() { if (!running && visible && !document.hidden && !windowOpen) { running = true; raf = requestAnimationFrame(frame); } }
   function stop() { running = false; cancelAnimationFrame(raf); }
 
   // bring a card to the front (shortest way round)
