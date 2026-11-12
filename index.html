@@ -142,8 +142,9 @@ a:hover .arrow.ne { transform: translate(2px, -2px); }
 .hero { display: grid; gap: 48px; padding-block: clamp(40px, 9vw, 110px) clamp(64px, 10vw, 120px); align-items: center; }
 @media (min-width: 900px) { .hero { grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.9fr); gap: 64px; } }
 .eyebrow { font-family: var(--f-mono); font-size: var(--t-xs); color: var(--muted); letter-spacing: 0.04em; display: flex; flex-wrap: wrap; gap: 6px 14px; }
-.eyebrow span + span::before { content: "/"; color: var(--faint); margin-right: 14px; }
-@media (max-width: 480px) { .eyebrow { gap: 4px 16px; } .eyebrow span + span::before { content: none; } }
+/* separator trails each item, so a wrapped line always starts with words, never a "/" */
+.eyebrow span:not(:last-child)::after { content: "/"; color: var(--faint); margin-left: 14px; }
+@media (max-width: 480px) { .eyebrow { gap: 4px 16px; } .eyebrow span:not(:last-child)::after { content: none; } }
 .hero h1 { font-size: var(--t-hero); letter-spacing: -0.015em; margin-top: 22px; }
 .position { font-family: var(--f-display); font-size: var(--t-lg); line-height: 1.25; margin-top: 18px; max-width: 24ch; color: var(--fg); }
 .position em { color: var(--accent); }
@@ -621,7 +622,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   <!-- Hero -->
   <section class="wrap hero" aria-labelledby="hero-name">
     <div>
-      <p class="eyebrow intro" style="--d: 0ms"><span>BSc Cybersecurity</span><span>Class of 2026</span><span>Yangon, Myanmar</span></p>
+      <p class="eyebrow intro" style="--d: 0ms"><span>BSc Cybersecurity, Singapore</span><span>Class of 2026</span></p>
       <h1 id="hero-name"><span class="w"><span style="--i: 0">Tun</span></span> <span class="w"><span style="--i: 1">Oo</span></span> <span class="w"><span style="--i: 2">Hlaing</span></span></h1>
       <p class="position intro" style="--d: 560ms">Cybersecurity graduate building <em>secure, reliable backends</em>.</p>
       <p class="seeking intro" style="--d: 680ms">Encrypted storage in Rust, APIs in Python, real-time systems. Open to junior security, software and backend roles in Myanmar or Singapore.</p>
@@ -645,8 +646,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   <section class="wrap glance" aria-label="At a glance">
     <dl>
       <div><dt>roles</dt><dd>Junior security, software or backend</dd></div>
-      <div><dt>degree</dt><dd>BSc Cybersecurity, UOW, 2026</dd></div>
-      <div><dt>based in</dt><dd>Yangon, Myanmar</dd></div>
+      <div><dt>degree</dt><dd>BSc Cybersecurity, UOW Singapore, 2026</dd></div>
+      <div><dt>now based in</dt><dd>Yangon, Myanmar</dd></div>
       <div><dt>open to</dt><dd>Myanmar or Singapore</dd></div>
       <div><dt>available</dt><dd>Now, immediate start</dd></div>
       <div><dt>languages</dt><dd>English, Burmese</dd></div>
@@ -658,14 +659,14 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <div class="wrap sec-grid">
       <div class="margin">
         <p class="label"><span class="sym sym-fingerprint" aria-hidden="true"><svg viewBox="0 0 24 24"><path pathLength="1" d="M4.6 15.5c.3-1.1.4-2.3.4-3.5a7 7 0 0 1 14 0c0 1.9-.2 3.7-.6 5.4"/><path pathLength="1" d="M7.3 18.6c.8-1.9 1.2-4.2 1.2-6.6a3.5 3.5 0 0 1 7 0c0 1.4-.1 2.8-.4 4.1"/><path pathLength="1" d="M12 12c0 3.1-.6 5.9-1.8 8.2"/><path pathLength="1" d="M14.4 18.8c-.3.9-.7 1.7-1.1 2.4"/><line class="scan" x1="3" y1="5" x2="21" y2="5"/></svg></span>about</p>
-        <p class="note-m"><b>BSc Computer Science</b>Cybersecurity major<br>University of Wollongong<br>Graduated 2026</p>
-        <p class="note-m"><b>Diploma in IT</b>SIM Global Education<br>Oct 2023 – Sep 2024</p>
+        <p class="note-m"><b>BSc Computer Science</b>Cybersecurity major<br>University of Wollongong<br>Singapore · graduated 2026</p>
+        <p class="note-m"><b>Diploma in IT</b>SIM Global Education<br>Singapore · Oct 2023 – Sep 2024</p>
         <p class="note-m"><b>Impetus Award</b>Recognition</p>
       </div>
       <div class="body reveal">
         <h2 id="about-h">Building software <em>people can trust</em>.</h2>
         <div class="about">
-          <p>I'm Tun. I studied Computer Science with a major in Cybersecurity at the University of Wollongong, after a Diploma in Information Technology at SIM Global Education.</p>
+          <p>I'm Tun. I studied Computer Science with a major in Cybersecurity at the University of Wollongong in Singapore, after a Diploma in Information Technology at SIM Global Education, also in Singapore.</p>
           <p>Security interests me because it asks you to be precise. A system is only as safe as its weakest assumption, so you learn to question every one. Cryptography is where that precision matters most: in SecureVault, a single changed byte is enough for authenticated encryption to refuse the file.</p>
           <p class="quiet">I like building things end to end, from encryption logic in Rust to a full-stack app shipped in two days. I'm now back home in Yangon and looking for my first role, where I can keep learning from people who care about doing things properly.</p>
         </div>
