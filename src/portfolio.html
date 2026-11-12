@@ -1,0 +1,779 @@
+<title>Tun Oo Hlaing</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Tun Oo Hlaing: cybersecurity graduate building secure, thoughtful software. Open to junior security engineer, software engineer and backend developer roles.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a developer's notebook. One calm column; on wide screens each section gets a narrow
+   left margin for its § label and marginal notes, with the content to the right. Dark by default. */
+:root {
+  --bg: #0e0e10;
+  --raise: #141417;
+  --fg: #ece7de;
+  --muted: #a19c93;
+  --faint: #5f5c57;
+  --line: #24242a;
+  --accent: #a3bc9d;
+  --accent-soft: rgba(163, 188, 157, 0.12);
+  --dot: rgba(236, 231, 222, 0.07);
+  --on-accent: #0e0e10;
+
+  --f-display: "Instrument Serif", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --f-body: "Instrument Sans", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --t-xs: 0.75rem;
+  --t-sm: 0.875rem;
+  --t-base: 1.0625rem;
+  --t-lg: clamp(1.35rem, 1.1rem + 1.1vw, 1.85rem);
+  --t-xl: clamp(2.1rem, 1.6rem + 2.4vw, 3.1rem);
+  --t-hero: clamp(3.2rem, 2rem + 6.2vw, 6.6rem);
+
+  /* motion tokens: quick feedback, standard hover, section reveal */
+  --dur-quick: 180ms;
+  --dur-base: 250ms;
+  --dur-reveal: 450ms;
+  --ease-out: cubic-bezier(0.2, 0.6, 0.2, 1);
+  color-scheme: dark;
+}
+:root[data-theme="light"] {
+  --bg: #f3f3ef;
+  --raise: #fafaf7;
+  --fg: #1c1d1a;
+  --muted: #5a5d56;
+  --faint: #9a9c94;
+  --line: #dcddd5;
+  --accent: #4b6947;
+  --accent-soft: rgba(75, 105, 71, 0.1);
+  --dot: rgba(28, 29, 26, 0.09);
+  --on-accent: #f3f3ef;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--f-body);
+  font-size: var(--t-base);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+/* While the theme switches, every surface and text colour fades together so nothing flashes unreadable. */
+.theme-anim, .theme-anim *, .theme-anim *::before, .theme-anim *::after {
+  transition: background-color var(--dur-base) ease, color var(--dur-base) ease, border-color var(--dur-base) ease, text-decoration-color var(--dur-base) ease !important;
+}
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background-image: radial-gradient(var(--dot) 1px, transparent 1.3px);
+  background-size: 26px 26px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.15) 100%);
+          mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.15) 100%);
+}
+h1, h2, h3 { font-family: var(--f-display); font-weight: 400; margin: 0; text-wrap: balance; line-height: 1.05; }
+p { margin: 0; }
+ul { margin: 0; padding: 0; list-style: none; }
+::selection { background: var(--accent); color: var(--on-accent); }
+
+a { color: inherit; }
+.u {
+  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px;
+  text-decoration-color: var(--faint);
+  transition: text-underline-offset var(--dur-base) ease, text-decoration-color var(--dur-base) ease, color var(--dur-base) ease;
+}
+.u:hover { text-underline-offset: 7px; text-decoration-color: var(--accent); }
+.arrow { display: inline-block; transition: transform var(--dur-base) ease; }
+a:hover .arrow, button:hover .arrow { transform: translateX(3px); }
+a:hover .arrow.ne { transform: translate(2px, -2px); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+
+.wrap {
+  max-width: 1120px; margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+@media (min-width: 640px) {
+  .wrap { padding-left: max(32px, env(safe-area-inset-left, 0px)); padding-right: max(32px, env(safe-area-inset-right, 0px)); }
+}
+.mono { font-family: var(--f-mono); }
+
+.skip { position: absolute; left: 12px; top: -60px; background: var(--accent); color: var(--on-accent); padding: 8px 12px; border-radius: 4px; z-index: 20; font-family: var(--f-mono); font-size: var(--t-xs); text-decoration: none; }
+.skip:focus { top: 12px; }
+
+/* ---------- Top bar ---------- */
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 22px; }
+.mark { font-family: var(--f-display); font-size: 1.5rem; text-decoration: none; letter-spacing: 0.01em; }
+.mark i { font-style: italic; color: var(--accent); }
+.top .wrap { flex-wrap: wrap; }
+.nav { display: flex; gap: 26px; font-family: var(--f-mono); font-size: var(--t-xs); text-transform: lowercase; }
+.nav a { color: var(--muted); text-decoration: none; padding-block: 6px; transition: color var(--dur-quick) ease; }
+.nav a:hover { color: var(--fg); }
+@media (max-width: 720px) {
+  .nav { order: 3; width: 100%; justify-content: space-between; gap: 8px; padding-top: 8px; border-top: 1px solid var(--line); }
+  .nav a { padding-block: 10px; }
+}
+.toggle {
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+  font-family: var(--f-mono); font-size: var(--t-xs); color: var(--muted);
+  background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px 6px 9px;
+  transition: color var(--dur-quick) ease, border-color var(--dur-quick) ease;
+}
+.toggle:hover { color: var(--fg); border-color: var(--faint); }
+.toggle svg { width: 14px; height: 14px; }
+
+/* ---------- Hero ---------- */
+.hero { display: grid; gap: 48px; padding-block: clamp(40px, 9vw, 110px) clamp(64px, 10vw, 120px); align-items: center; }
+@media (min-width: 900px) { .hero { grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.9fr); gap: 64px; } }
+.eyebrow { font-family: var(--f-mono); font-size: var(--t-xs); color: var(--muted); letter-spacing: 0.04em; display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.eyebrow span + span::before { content: "/"; color: var(--faint); margin-right: 14px; }
+@media (max-width: 480px) { .eyebrow { gap: 4px 16px; } .eyebrow span + span::before { content: none; } }
+.hero h1 { font-size: var(--t-hero); letter-spacing: -0.015em; margin-top: 22px; }
+.position { font-family: var(--f-display); font-size: var(--t-lg); line-height: 1.25; margin-top: 18px; max-width: 24ch; color: var(--fg); }
+.position em { color: var(--accent); }
+.seeking { margin-top: 22px; color: var(--muted); max-width: 46ch; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 10px; text-decoration: none;
+  font-family: var(--f-mono); font-size: var(--t-sm); padding: 11px 18px; border-radius: 4px;
+  border: 1px solid var(--line); color: var(--fg); background: transparent;
+  transition: border-color var(--dur-quick) ease, background-color var(--dur-quick) ease;
+}
+.btn:hover { border-color: var(--fg); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.btn.primary:hover { background: color-mix(in srgb, var(--accent) 88%, var(--fg)); }
+
+.fig { margin: 0; justify-self: center; width: 100%; max-width: 380px; }
+/* fig. 1: an illustrative hexdump of a message being sealed and opened, byte by byte */
+.vault {
+  border: 1px solid var(--line); border-radius: 4px; padding: 16px 18px; max-width: 100%; overflow: hidden;
+  background: color-mix(in srgb, var(--raise) 70%, transparent);
+  font-family: var(--f-mono); font-size: 0.75rem; line-height: 1.95; color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.vault-top, .vault-foot { display: flex; justify-content: space-between; gap: 12px; white-space: nowrap; }
+.vault-top { padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid var(--line); }
+.vault-foot { padding-top: 10px; margin-top: 10px; border-top: 1px solid var(--line); }
+.vault-top b { font-weight: 500; color: var(--fg); }
+#vault-state { color: var(--accent); }
+.drow { display: grid; grid-template-columns: 4ch minmax(0, 1fr) 8ch; gap: 2ch; white-space: nowrap; }
+.drow .hex { display: flex; justify-content: space-between; }
+.drow .asc { display: flex; }
+.drow .asc span { width: 1ch; text-align: center; }
+.b { color: var(--fg); border-radius: 2px; transition: color var(--dur-base) ease, background-color var(--dur-quick) ease; }
+.b.c { color: var(--accent); }
+.asc .b, .asc .b.c { color: var(--muted); }
+.b.h { background: var(--accent); color: var(--on-accent) !important; }
+.mini {
+  font-family: var(--f-mono); font-size: var(--t-xs); color: var(--muted); cursor: pointer;
+  background: transparent; border: 1px solid var(--line); border-radius: 3px; padding: 2px 9px; min-height: 26px;
+  transition: color var(--dur-quick) ease, border-color var(--dur-quick) ease;
+}
+.mini:hover { color: var(--fg); border-color: var(--faint); }
+@media (pointer: coarse) { .mini { min-height: 44px; padding-inline: 14px; } }
+.fig figcaption { margin-top: 12px; font-family: var(--f-mono); font-size: var(--t-xs); color: var(--muted); line-height: 1.6; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; }
+.fig figcaption b { font-weight: 500; color: var(--fg); }
+
+/* ---------- Sections ---------- */
+.sec { border-top: 1px solid var(--line); padding-block: clamp(64px, 10vw, 112px); }
+.sec-grid { display: grid; gap: 22px; }
+@media (min-width: 900px) { .sec-grid { grid-template-columns: 210px minmax(0, 1fr); gap: 56px; } }
+.margin { display: grid; gap: 18px; align-content: start; }
+.label { font-family: var(--f-mono); font-size: var(--t-xs); letter-spacing: 0.06em; color: var(--accent); text-transform: lowercase; }
+.label span { color: var(--muted); margin-right: 6px; }
+.note-m { font-family: var(--f-mono); font-size: var(--t-xs); color: var(--muted); line-height: 1.7; display: none; }
+.note-m b { display: block; color: var(--fg); font-weight: 500; }
+@media (min-width: 900px) { .note-m { display: block; } }
+.sec h2 { font-size: var(--t-xl); letter-spacing: -0.01em; max-width: 20ch; }
+.sec h2 em { color: var(--accent); }
+.body { min-width: 0; }
+.lead { margin-top: 24px; color: var(--muted); max-width: 60ch; }
+
+/* About */
+.about { display: grid; gap: 18px; margin-top: 28px; max-width: 64ch; }
+.about p:first-child { font-family: var(--f-display); font-size: var(--t-lg); line-height: 1.35; }
+.about p { color: var(--fg); }
+.about .quiet { color: var(--muted); }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 0; margin-top: 40px; border-top: 1px solid var(--line); }
+.facts div { padding: 14px 16px 14px 0; border-bottom: 1px solid var(--line); }
+.facts dt { font-family: var(--f-mono); font-size: var(--t-xs); color: var(--muted); }
+.facts dd { margin: 4px 0 0; font-size: var(--t-sm); }
+
+/* Projects: each card is a notebook entry. The margin holds the facts (year, context, role);
+   the body holds the work, with a small numbered figure showing how it works.
+   Cards are not links, so they get no hover lift that would suggest a click. */
+.projects { margin-top: 36px; border-top: 1px solid var(--line); }
+.project { display: grid; gap: 18px; padding-block: 40px; border-bottom: 1px solid var(--line); }
+@media (min-width: 720px) { .project { grid-template-columns: 150px minmax(0, 1fr); gap: 32px; } }
+.p-meta { font-family: var(--f-mono); font-size: var(--t-xs); color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 16px; align-content: start; }
+@media (min-width: 720px) { .p-meta { display: grid; gap: 6px; padding-top: 6px; } }
+.p-meta .yr { color: var(--fg); }
+.p-meta .p-role { color: var(--accent); }
+.p-body { min-width: 0; display: grid; gap: 18px; }
+.p-head { display: grid; gap: 10px; }
+.p-body h3 { font-size: clamp(1.8rem, 1.45rem + 1.3vw, 2.4rem); }
+.p-sum { font-size: 1.1rem; line-height: 1.55; max-width: 56ch; }
+.p-sub { font-family: var(--f-mono); font-size: var(--t-xs); color: var(--muted); margin-bottom: 8px; }
+.p-points { display: grid; gap: 6px; color: var(--muted); font-size: var(--t-sm); max-width: 62ch; }
+.p-points li { padding-left: 18px; position: relative; }
+.p-points li::before { content: "–"; position: absolute; left: 0; color: var(--faint); }
+
+/* fig. n: how the project works, as a step-by-step flow */
+.flow-fig { margin: 0; border: 1px solid var(--line); border-radius: 4px; padding: 14px 16px 12px; background: color-mix(in srgb, var(--raise) 65%, transparent); max-width: 100%; }
+.flow { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 6px; font-family: var(--f-mono); font-size: var(--t-xs); }
+.flow li { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.flow li:not(:last-child)::after { content: "→"; content: "→" / ""; color: var(--accent); }
+.flow b { font-weight: 400; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 3px; padding: 3px 8px; }
+.flow-fig figcaption { margin-top: 10px; font-family: var(--f-mono); font-size: var(--t-xs); color: var(--muted); }
+.flow-fig figcaption b { font-weight: 500; color: var(--fg); margin-right: 2px; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-family: var(--f-mono); font-size: 0.75rem; color: var(--muted); border: 1px solid var(--line); border-radius: 3px; padding: 3px 8px; line-height: 1.4; white-space: nowrap; }
+.p-links { display: flex; flex-wrap: wrap; gap: 18px; font-family: var(--f-mono); font-size: var(--t-sm); }
+.p-links a { text-decoration: none; color: var(--fg); display: inline-block; padding-block: 6px; }
+.p-links a span:first-child { text-decoration: underline; text-decoration-color: var(--faint); text-underline-offset: 4px; transition: text-underline-offset var(--dur-base) ease, text-decoration-color var(--dur-base) ease; }
+.p-links a:hover span:first-child { text-underline-offset: 7px; text-decoration-color: var(--accent); }
+.after { margin-top: 26px; font-family: var(--f-mono); font-size: var(--t-sm); color: var(--muted); }
+
+/* Skills */
+.skills { display: grid; gap: 0; margin-top: 36px; border-top: 1px solid var(--line); }
+@media (min-width: 640px) { .skills { grid-template-columns: 1fr 1fr; column-gap: 40px; } }
+.skill { padding-block: 22px; border-bottom: 1px solid var(--line); display: grid; gap: 12px; align-content: start; }
+.skill h3 { font-family: var(--f-display); font-size: 1.6rem; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.skill h3 small { font-family: var(--f-mono); font-size: var(--t-xs); color: var(--muted); }
+.skill .tag { color: var(--fg); font-size: 0.76rem; }
+.skill p { font-size: var(--t-sm); color: var(--muted); }
+
+/* Notes */
+.notes { margin-top: 36px; border-top: 1px solid var(--line); }
+.note { display: grid; gap: 8px; padding-block: 24px; border-bottom: 1px solid var(--line); }
+@media (min-width: 720px) { .note { grid-template-columns: 150px minmax(0, 1fr); gap: 32px; } }
+.note-status { font-family: var(--f-mono); font-size: var(--t-xs); color: var(--muted); }
+.note-status i { font-style: normal; color: var(--accent); border: 1px solid var(--accent); border-radius: 3px; padding: 1px 6px; }
+.note h3 { font-size: 1.55rem; }
+.note h3 a { text-decoration: none; }
+.note p { color: var(--muted); font-size: var(--t-sm); max-width: 60ch; }
+.note .tags { margin-top: 4px; }
+
+/* Contact */
+.contact-big { font-family: var(--f-display); font-size: var(--t-xl); line-height: 1.1; max-width: 18ch; }
+.contact-big em { color: var(--accent); }
+.c-list { margin-top: 36px; border-top: 1px solid var(--line); }
+.c-row { display: grid; grid-template-columns: 1fr; gap: 4px; padding-block: 18px; border-bottom: 1px solid var(--line); align-items: center; }
+@media (min-width: 640px) { .c-row { grid-template-columns: 120px minmax(0, 1fr) auto; gap: 20px; } }
+.c-row dt { font-family: var(--f-mono); font-size: var(--t-xs); color: var(--muted); }
+.c-row dd { margin: 0; min-width: 0; font-size: 1.1rem; overflow-wrap: anywhere; }
+.c-row dd a { text-decoration: none; display: inline-block; padding-block: 6px; }
+.c-row dd a span:first-child { text-decoration: underline; text-decoration-color: var(--faint); text-underline-offset: 4px; transition: text-underline-offset var(--dur-base) ease, text-decoration-color var(--dur-base) ease; }
+.c-row dd a:hover span:first-child { text-underline-offset: 7px; text-decoration-color: var(--accent); }
+.copy {
+  justify-self: start; font-family: var(--f-mono); font-size: var(--t-xs); color: var(--muted); cursor: pointer;
+  background: transparent; border: 1px solid var(--line); border-radius: 3px; padding: 5px 10px;
+  transition: color var(--dur-quick) ease, border-color var(--dur-quick) ease;
+}
+.copy:hover { color: var(--fg); border-color: var(--faint); }
+.closing { margin-top: 32px; color: var(--muted); max-width: 56ch; }
+
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; padding-block: 32px 48px; border-top: 1px solid var(--line); font-family: var(--f-mono); font-size: var(--t-xs); color: var(--muted); }
+
+/* Comfortable tap sizes on touch screens */
+@media (pointer: coarse) {
+  .toggle, .copy, .btn { min-height: 44px; }
+  .copy { padding-inline: 14px; }
+}
+
+/* Scroll reveal: content is always visible at rest; sections only fade in as they first scroll into view. */
+@keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.reveal.in { animation: rise var(--dur-reveal) var(--ease-out) both; }
+
+/* Opening sequence (runs once on load): the name rises word by word, then the rest of the hero follows. */
+@keyframes word-up { from { transform: translateY(110%); } to { transform: none; } }
+@keyframes fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.hero h1 .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.2em; margin-bottom: -0.2em; }
+.hero h1 .w > span { display: inline-block; animation: word-up 900ms var(--ease-out) both; animation-delay: calc(140ms + var(--i) * 110ms); }
+.intro { animation: fade-up 700ms var(--ease-out) both; animation-delay: var(--d, 0ms); }
+.fig { animation: fade-up 900ms var(--ease-out) both; animation-delay: 200ms; }
+
+
+/* Signal pulse: when a project figure scrolls into view, each step lights up in turn, like data moving through. */
+@keyframes signal {
+  0%, 100% { border-color: var(--line); color: var(--fg); box-shadow: 0 0 0 0 transparent; }
+  35% { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+}
+.flow-fig.run .flow b { animation: signal 1100ms var(--ease-out) both; animation-delay: calc(var(--i, 0) * 180ms); }
+
+/* Nav: a thin underline grows under the section you're reading. */
+.nav a {
+  background: linear-gradient(var(--accent), var(--accent)) no-repeat 0 calc(100% - 3px) / 0 1px;
+  transition: color var(--dur-quick) ease, background-size var(--dur-reveal) var(--ease-out);
+}
+.nav a.active { color: var(--fg); background-size: 100% 1px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+<script>
+  try { var saved = localStorage.getItem("toh-theme"); if (saved === "light" || saved === "dark") document.documentElement.setAttribute("data-theme", saved); } catch (e) {}
+</script>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="#main" aria-label="Tun Oo Hlaing, back to top">Tun <i>O.</i> Hlaing</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#about">about</a>
+      <a href="#work">work</a>
+      <a href="#skills">skills</a>
+      <a href="#notes">notes</a>
+      <a href="#contact">contact</a>
+    </nav>
+    <button class="toggle" id="theme-toggle" type="button" aria-label="Switch to light mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg>
+      <span id="theme-label">light</span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+  <!-- Hero -->
+  <section class="wrap hero" aria-labelledby="hero-name">
+    <div>
+      <p class="eyebrow intro" style="--d: 0ms"><span>BSc Cybersecurity</span><span>Class of 2026</span><span>Yangon, Myanmar</span></p>
+      <h1 id="hero-name"><span class="w"><span style="--i: 0">Tun</span></span> <span class="w"><span style="--i: 1">Oo</span></span> <span class="w"><span style="--i: 2">Hlaing</span></span></h1>
+      <p class="position intro" style="--d: 560ms">Cybersecurity graduate building <em>secure, thoughtful</em> software.</p>
+      <p class="seeking intro" style="--d: 680ms">Open to junior security engineer, software engineer and backend developer roles in Myanmar or Singapore.</p>
+      <div class="cta intro" style="--d: 800ms">
+        <a class="btn primary" href="#contact">Contact <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <figure class="fig">
+      <div class="vault" aria-hidden="true">
+        <div class="vault-top"><b>message.bin</b><span id="vault-state">plaintext</span></div>
+        <div class="dump" id="dump"></div>
+        <div class="vault-foot"><span id="vault-nonce">nonce ————</span><span id="vault-tag">tag —</span></div>
+      </div>
+      <figcaption><span><b>fig. 1</b> A message sealed and opened byte by byte, AES-GCM style (illustrative)</span><button class="mini" id="vault-pause" type="button" aria-label="Pause animation">pause</button></figcaption>
+    </figure>
+  </section>
+
+  <!-- About -->
+  <section class="sec" id="about" aria-labelledby="about-h">
+    <div class="wrap sec-grid">
+      <div class="margin">
+        <p class="label"><span>§</span>about</p>
+        <p class="note-m"><b>BSc Computer Science</b>Cybersecurity major<br>University of Wollongong<br>Graduated 2026</p>
+        <p class="note-m"><b>Diploma in IT</b>SIM Global Education<br>Oct 2023 – Sep 2024</p>
+      </div>
+      <div class="body reveal">
+        <h2 id="about-h">Building software <em>people can trust</em>.</h2>
+        <div class="about">
+          <p>I'm Tun. I studied Computer Science with a major in Cybersecurity at the University of Wollongong, after a Diploma in Information Technology at SIM Global Education.</p>
+          <p>Security interests me because it asks you to be precise. A system is only as safe as its weakest assumption, so you learn to question every one. Cryptography is where that precision matters most: in SecureVault, a single changed byte is enough for authenticated encryption to refuse the file.</p>
+          <p class="quiet">I like building things end to end, from encryption logic in Rust to a full-stack app shipped in two days. I'm now back home in Yangon and looking for my first role, where I can keep learning from people who care about doing things properly.</p>
+        </div>
+        <dl class="facts">
+          <div><dt>looking for</dt><dd>Junior security, software or backend roles</dd></div>
+          <div><dt>based in</dt><dd>Yangon, Myanmar</dd></div>
+          <div><dt>will work in</dt><dd>Myanmar or Singapore</dd></div>
+          <div><dt>languages</dt><dd>English, Burmese</dd></div>
+          <div><dt>recognition</dt><dd>Impetus Award</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="sec" id="work" aria-labelledby="work-h">
+    <div class="wrap sec-grid">
+      <div class="margin">
+        <p class="label"><span>§</span>selected work</p>
+        <p class="note-m">Academic and hackathon projects where I wrote the code and shipped a working system.</p>
+      </div>
+      <div class="body reveal">
+        <h2 id="work-h">Things I've <em>built</em>.</h2>
+        <ul class="projects" id="project-list"></ul>
+        <p class="after">More code on <a class="u" href="https://github.com/felixgu2" target="_blank" rel="noopener">github.com/felixgu2</a> <span class="arrow ne" aria-hidden="true">↗</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="sec" id="skills" aria-labelledby="skills-h">
+    <div class="wrap sec-grid">
+      <div class="margin">
+        <p class="label"><span>§</span>toolkit</p>
+        <p class="note-m">What I've used in coursework, labs and the projects above.</p>
+      </div>
+      <div class="body reveal">
+        <h2 id="skills-h">What I <em>work with</em>.</h2>
+        <div class="skills" id="skill-list"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notes -->
+  <section class="sec" id="notes" aria-labelledby="notes-h">
+    <div class="wrap sec-grid">
+      <div class="margin">
+        <p class="label"><span>§</span>notes</p>
+        <p class="note-m">Short write-ups: CTF walkthroughs and notes from building things.</p>
+      </div>
+      <div class="body reveal">
+        <h2 id="notes-h">Writing &amp; <em>notes</em>.</h2>
+        <p class="lead">A place for short write-ups on security challenges and what I learn building my projects. The first notes are in progress.</p>
+        <ul class="notes" id="note-list"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="sec" id="contact" aria-labelledby="contact-h">
+    <div class="wrap sec-grid">
+      <div class="margin">
+        <p class="label"><span>§</span>contact</p>
+      </div>
+      <div class="body reveal">
+        <h2 id="contact-h" class="contact-big">Have a role in mind? I'd like to <em>hear about it</em>.</h2>
+        <dl class="c-list">
+          <div class="c-row">
+            <dt>email</dt>
+            <dd><a href="mailto:tunohlaing456@gmail.com" id="email-link"><span>tunohlaing456@gmail.com</span></a></dd>
+            <button class="copy" type="button" id="copy-email" data-copy="tunohlaing456@gmail.com">copy</button>
+          </div>
+          <div class="c-row">
+            <dt>github</dt>
+            <dd><a href="https://github.com/felixgu2" target="_blank" rel="noopener"><span>github.com/felixgu2</span> <span class="arrow ne" aria-hidden="true">↗</span></a></dd>
+          </div>
+          <div class="c-row">
+            <dt>linkedin</dt>
+            <dd><a href="https://www.linkedin.com/in/tun-oo-hlaing-45559a433" target="_blank" rel="noopener"><span>in/tun-oo-hlaing-45559a433</span> <span class="arrow ne" aria-hidden="true">↗</span></a></dd>
+          </div>
+        </dl>
+        <p class="closing">I reply to every message. Based in Yangon, available to start now, and happy to relocate to Singapore for the right team.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Tun Oo Hlaing</span>
+    <span>Plain HTML, CSS and a little JavaScript</span>
+  </div>
+</footer>
+
+<script>
+/* ==========================================================
+   EDIT YOUR CONTENT HERE
+   Add a project: copy one object in PROJECTS and change it.
+   flow:  the steps of how it works, shown as a small numbered figure.
+          Leave it out (or []) to show no figure.
+   links: add { label: "GitHub", href: "https://github.com/..." }
+          or { label: "Demo", href: "https://..." }. Empty = no links shown.
+   ========================================================== */
+const PROJECTS = [
+  {
+    title: "SecureVault",
+    year: "2023 – 2024",
+    context: "Academic project",
+    role: "Backend developer",
+    summary: "An encrypted file vault desktop app built with Rust and Tauri, with streaming encryption so large files never have to fit in memory.",
+    flow: ["file in", "AES-256-GCM encrypt", "Shamir split", "fragments on disk", "streamed rebuild"],
+    points: [
+      "AES-256-GCM authenticated encryption, so any tampering is caught on decrypt.",
+      "Shamir's Secret Sharing splits each encrypted file into fragments stored separately on disk.",
+      "Rebuilt the fragmentation and reconstruction logic around streaming I/O for large files."
+    ],
+    stack: ["Rust", "Tauri", "AES-256-GCM", "Shamir's Secret Sharing", "Streaming I/O"],
+    links: []
+  },
+  {
+    title: "WalklyMiles",
+    year: "2026",
+    context: "Hackathon · built in 2 days",
+    role: "Co-developer",
+    summary: "A step-tracking app with an AI coach and location-based badges that nudges people to walk more.",
+    flow: ["steps tracked", "quests & missions", "location badges", "AI coach nudge"],
+    points: [
+      "Quest and mission engine, plus weather-aware walk planning.",
+      "Built end to end with one teammate inside the 2-day window."
+    ],
+    stack: ["Python", "Flask", "Supabase", "PostgreSQL", "AI coach"],
+    links: []
+  },
+  {
+    title: "Face Recognition Login",
+    year: "2023 – 2024",
+    context: "Academic project",
+    role: "Developer",
+    summary: "Webcam-based face authentication with real-time verification and fast similarity search.",
+    flow: ["webcam frame", "face embedding", "FAISS lookup", "verified or rejected"],
+    points: [
+      "Face capture, embedding generation and live verification against enrolled users.",
+      "FAISS index for fast nearest-neighbour lookups; served with FastAPI, desktop UI in Tkinter."
+    ],
+    stack: ["Python", "OpenCV", "InsightFace / ArcFace", "FAISS", "FastAPI", "Tkinter"],
+    links: []
+  }
+];
+
+const SKILLS = [
+  { group: "Security", note: "tools & practice",
+    items: ["Wireshark", "Nmap", "Burp Suite", "Metasploit", "Kali Linux", "Cryptography", "Network security", "Web security", "Digital forensics", "Ethical hacking", "Secure programming"] },
+  { group: "Languages", note: "code",
+    items: ["Python", "Rust", "Java", "C / C++", "Bash", "SQL"] },
+  { group: "Tools", note: "frameworks & systems",
+    items: ["Tauri", "Flask", "FastAPI", "OpenCV", "FAISS", "Git / GitHub", "Linux", "Windows"] },
+  { group: "Databases", note: "data",
+    items: ["PostgreSQL", "Supabase", "MySQL", "MongoDB"] }
+];
+
+/* Notes: set status to a date like "Mar 2026" and add href when a note is published. */
+const NOTES = [
+  { title: "Why a file vault needs authenticated encryption", status: "planned",
+    summary: "What the AES-GCM authentication tag protects against, with examples from building SecureVault.",
+    tags: ["cryptography", "security"], href: "" },
+  { title: "Encrypting large files in constant memory", status: "planned",
+    summary: "Streaming AES-256-GCM in Rust: chunking, nonces, and keeping authentication intact.",
+    tags: ["rust", "security"], href: "" }
+];
+
+/* ---------- Rendering (no need to edit below) ---------- */
+function el(tag, attrs, children) {
+  const n = document.createElement(tag);
+  if (attrs) for (const k in attrs) {
+    if (k === "text") n.textContent = attrs[k];
+    else if (k === "class") n.className = attrs[k];
+    else n.setAttribute(k, attrs[k]);
+  }
+  (children || []).forEach(c => c && n.appendChild(c));
+  return n;
+}
+function tags(list) { return el("div", { class: "tags" }, list.map(t => el("span", { class: "tag", text: t }))); }
+
+const projectList = document.getElementById("project-list");
+let figNo = 2; // fig. 1 is the curve in the hero
+PROJECTS.forEach(p => {
+  const links = (p.links || []).filter(l => l && l.href);
+  const flow = p.flow && p.flow.length ? el("figure", { class: "flow-fig" }, [
+    el("ol", { class: "flow", "aria-label": "How " + p.title + " works, step by step" },
+      p.flow.map((step, i) => el("li", { style: "--i: " + i }, [el("b", { text: step })]))),
+    el("figcaption", {}, [el("b", { text: "fig. " + (figNo++) }), document.createTextNode(" how " + p.title + " works")])
+  ]) : null;
+  projectList.appendChild(el("li", { class: "project" }, [
+    el("div", { class: "p-meta" }, [
+      el("span", { class: "yr", text: p.year }),
+      el("span", { text: p.context }),
+      el("span", { class: "p-role", text: p.role })
+    ]),
+    el("div", { class: "p-body" }, [
+      el("div", { class: "p-head" }, [el("h3", { text: p.title }), el("p", { class: "p-sum", text: p.summary })]),
+      flow,
+      p.points && p.points.length ? el("div", {}, [
+        el("p", { class: "p-sub", text: "what I did" }),
+        el("ul", { class: "p-points" }, p.points.map(t => el("li", { text: t })))
+      ]) : null,
+      el("div", {}, [el("p", { class: "p-sub", text: "stack" }), tags(p.stack)]),
+      links.length ? el("div", { class: "p-links" }, links.map(l =>
+        el("a", { href: l.href, target: "_blank", rel: "noopener" }, [el("span", { text: l.label }), document.createTextNode(" "), el("span", { class: "arrow ne", "aria-hidden": "true", text: "↗" })])
+      )) : null
+    ])
+  ]));
+});
+
+const skillList = document.getElementById("skill-list");
+SKILLS.forEach(s => {
+  skillList.appendChild(el("div", { class: "skill" }, [
+    el("h3", {}, [document.createTextNode(s.group), el("small", { text: s.note })]),
+    tags(s.items),
+    s.caption ? el("p", { text: s.caption }) : null
+  ]));
+});
+
+const noteList = document.getElementById("note-list");
+NOTES.forEach(n => {
+  const title = n.href ? el("a", { href: n.href, class: "u", target: "_blank", rel: "noopener", text: n.title }) : document.createTextNode(n.title);
+  noteList.appendChild(el("li", { class: "note" }, [
+    el("p", { class: "note-status" }, [el("i", { text: n.status })]),
+    el("div", {}, [el("h3", {}, [title]), el("p", { text: n.summary }), tags(n.tags)])
+  ]));
+});
+
+/* ---------- Theme toggle (dark by default) ---------- */
+const root = document.documentElement;
+const toggle = document.getElementById("theme-toggle");
+const themeLabel = document.getElementById("theme-label");
+const isLight = () => root.getAttribute("data-theme") === "light";
+function syncToggle() {
+  const light = isLight();
+  themeLabel.textContent = light ? "dark" : "light";
+  toggle.setAttribute("aria-label", light ? "Switch to dark mode" : "Switch to light mode");
+}
+toggle.addEventListener("click", () => {
+  const next = isLight() ? "dark" : "light";
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    root.classList.add("theme-anim");
+    clearTimeout(toggle._t);
+    toggle._t = setTimeout(() => root.classList.remove("theme-anim"), 320);
+  }
+  root.setAttribute("data-theme", next);
+  try { localStorage.setItem("toh-theme", next); } catch (e) {}
+  syncToggle();
+});
+syncToggle();
+
+/* ---------- Copy email ---------- */
+document.getElementById("copy-email").addEventListener("click", e => {
+  const btn = e.currentTarget, text = btn.getAttribute("data-copy");
+  const reset = () => setTimeout(() => { btn.textContent = "copy"; }, 1600);
+  const fallback = () => {
+    const r = document.createRange(); r.selectNodeContents(document.getElementById("email-link"));
+    const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+    btn.textContent = "selected"; reset();
+  };
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => { btn.textContent = "copied"; reset(); }, fallback);
+    else fallback();
+  } catch (err) { fallback(); }
+});
+
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------- Scroll reveal: only for sections that start below the fold ---------- */
+if (!reduceMotion && "IntersectionObserver" in window) {
+  const seen = new WeakSet();
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (!seen.has(en.target)) { seen.add(en.target); if (en.isIntersecting) { io.unobserve(en.target); return; } }
+      if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+    });
+  });
+  document.querySelectorAll(".reveal").forEach(n => io.observe(n));
+}
+
+/* ---------- Project figures: a signal pulses through the steps once, when each scrolls into view ---------- */
+if (!reduceMotion && "IntersectionObserver" in window) {
+  const pio = new IntersectionObserver(entries => entries.forEach(en => {
+    if (en.isIntersecting) { en.target.classList.add("run"); pio.unobserve(en.target); }
+  }), { threshold: 0.6 });
+  document.querySelectorAll(".flow-fig").forEach(f => pio.observe(f));
+}
+
+/* ---------- Nav: underline the section currently in view ---------- */
+if ("IntersectionObserver" in window) {
+  const navLinks = new Map([...document.querySelectorAll(".nav a")].map(a => [a.getAttribute("href").slice(1), a]));
+  const setActive = id => navLinks.forEach((a, key) => {
+    const on = key === id;
+    a.classList.toggle("active", on);
+    on ? a.setAttribute("aria-current", "true") : a.removeAttribute("aria-current");
+  });
+  const nio = new IntersectionObserver(entries => entries.forEach(en => {
+    if (en.isIntersecting) setActive(en.target.id || null);
+  }), { rootMargin: "-45% 0px -50% 0px" });
+  document.querySelectorAll("main > section").forEach(s => nio.observe(s));
+}
+
+/* ---------- fig. 1: a message sealed and opened, byte by byte (illustrative) ---------- */
+(function () {
+  const dump = document.getElementById("dump");
+  const stateEl = document.getElementById("vault-state");
+  const nonceEl = document.getElementById("vault-nonce");
+  const tagEl = document.getElementById("vault-tag");
+  const pauseBtn = document.getElementById("vault-pause");
+  const fig = dump.closest(".fig");
+
+  const SIZE = 64, COLS = 8, STEP = 55, HOLD = 2400;
+  const text = ("Cybersecurity graduate building secure, thoughtful software." + " ".repeat(SIZE)).slice(0, SIZE);
+  const hex2 = n => (n & 255).toString(16).padStart(2, "0");
+  const plainHex = [...text].map(ch => hex2(ch.charCodeAt(0)));
+  const shown = ch => (ch === " " ? " " : ch);
+
+  // small xorshift generator: a fresh "nonce" and keystream every cycle
+  let seed = (Date.now() ^ 0x9e3779b9) >>> 0 || 1;
+  const rnd = () => { seed ^= seed << 13; seed >>>= 0; seed ^= seed >>> 17; seed ^= seed << 5; seed >>>= 0; return seed; };
+  const hexRun = n => Array.from({ length: n }, () => hex2(rnd())).join("");
+
+  // build the dump: offset | 8 hex bytes | 8 ascii chars
+  const hexCells = [], ascCells = [];
+  for (let r = 0; r < SIZE / COLS; r++) {
+    const hx = el("span", { class: "hex" }), as = el("span", { class: "asc" });
+    for (let c = 0; c < COLS; c++) {
+      const i = r * COLS + c;
+      hexCells[i] = hx.appendChild(el("span", { class: "b" }));
+      ascCells[i] = as.appendChild(el("span", { class: "b" }));
+    }
+    dump.appendChild(el("div", { class: "drow" }, [el("span", { text: hex2(r * COLS).padStart(4, "0") }), hx, as]));
+  }
+
+  let cipher = [], sealed = new Array(SIZE).fill(false), head = -1;
+  function newKeystream() { cipher = plainHex.map(() => hex2(rnd())); nonceEl.textContent = "nonce " + hexRun(6) + "…"; }
+  function paint(i) {
+    const s = sealed[i];
+    hexCells[i].textContent = s ? cipher[i] : plainHex[i];
+    ascCells[i].textContent = s ? "." : shown(text[i]);
+    hexCells[i].classList.toggle("c", s);
+    ascCells[i].classList.toggle("c", s);
+  }
+  function setHead(i) {
+    if (head >= 0) { hexCells[head].classList.remove("h"); ascCells[head].classList.remove("h"); }
+    head = i;
+    if (i >= 0) { hexCells[i].classList.add("h"); ascCells[i].classList.add("h"); }
+  }
+
+  // phases: 0 encrypting → 1 sealed → 2 decrypting → 3 plaintext → …
+  const NAMES = ["encrypting", "sealed", "decrypting", "plaintext"];
+  let phase = 3, idx = 0, t0 = null, pausedAt = null, running = false, visible = true, raf = 0;
+  let userPaused = reduceMotion; // reduced motion: start still, the viewer can press play
+  function enterPhase(p) {
+    phase = p; idx = 0;
+    if (p === 0) { newKeystream(); tagEl.textContent = "tag —"; }
+    if (p === 1) tagEl.textContent = "tag " + hexRun(4) + "…";
+    if (p === 3) tagEl.textContent = "tag verified";
+    stateEl.textContent = NAMES[p];
+  }
+  function tick(now) {
+    if (t0 === null) t0 = now - (HOLD - 900); // short first pause, then start sealing
+    const elapsed = now - t0;
+    if (phase === 0 || phase === 2) {
+      const reach = Math.min(SIZE, Math.floor(elapsed / STEP));
+      while (idx < reach) { sealed[idx] = phase === 0; paint(idx); idx++; }
+      setHead(idx < SIZE ? idx : -1);
+      stateEl.textContent = NAMES[phase] + " " + idx + "/" + SIZE;
+      if (idx >= SIZE) { t0 = now; enterPhase(phase + 1); }
+    } else if (elapsed >= HOLD) {
+      t0 = now; enterPhase((phase + 1) % 4);
+    }
+    raf = requestAnimationFrame(tick);
+  }
+  function start() {
+    if (running || userPaused || !visible || document.hidden) return;
+    running = true;
+    if (pausedAt !== null && t0 !== null) t0 += performance.now() - pausedAt;
+    pausedAt = null;
+    raf = requestAnimationFrame(tick);
+  }
+  function stop() { if (!running) return; running = false; cancelAnimationFrame(raf); pausedAt = performance.now(); }
+  function syncButton() {
+    pauseBtn.textContent = userPaused ? "play" : "pause";
+    pauseBtn.setAttribute("aria-label", userPaused ? "Play animation" : "Pause animation");
+  }
+
+  // first frame: complete and readable before anything moves
+  newKeystream();
+  if (reduceMotion) {
+    for (let i = 0; i < 40; i++) sealed[i] = true;
+    stateEl.textContent = "encrypting 40/" + SIZE;
+  }
+  for (let i = 0; i < SIZE; i++) paint(i);
+  syncButton();
+
+  pauseBtn.addEventListener("click", () => { userPaused = !userPaused; syncButton(); userPaused ? stop() : start(); });
+  if ("IntersectionObserver" in window) new IntersectionObserver(es => { visible = es[0].isIntersecting; visible ? start() : stop(); }).observe(fig);
+  document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
+  start();
+})();
+</script>
