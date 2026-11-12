@@ -1,0 +1,54 @@
+<!doctype html>
+<!-- Link-preview image (og.png, 1200x630). To regenerate after editing, run from the portfolio folder:
+     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars \
+       --window-size=1200,630 --virtual-time-budget=4000 --screenshot="$PWD/og.png" "file://$PWD/src/og-card.html" -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=block">
+<style>
+  :root { --bg: #0e0e10; --raise: #141417; --fg: #ece7de; --muted: #a19c93; --line: #24242a; --accent: #a3bc9d; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    background: var(--bg); color: var(--fg); font-family: "Instrument Sans", Arial, sans-serif;
+    background-image: radial-gradient(rgba(236,231,222,0.07) 1.2px, transparent 1.4px); background-size: 26px 26px;
+    padding: 72px 80px; display: grid; grid-template-columns: 1fr 360px; gap: 56px; align-items: center;
+  }
+  .eyebrow { font-family: "JetBrains Mono", monospace; font-size: 20px; color: var(--muted); letter-spacing: .02em; }
+  .eyebrow b { color: var(--accent); font-weight: 500; }
+  h1 { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; font-size: 104px; line-height: 1; letter-spacing: -0.015em; margin-top: 26px; }
+  .role { font-family: "Instrument Serif", Georgia, serif; font-size: 40px; line-height: 1.2; margin-top: 20px; }
+  .role em { color: var(--accent); }
+  .meta { margin-top: 34px; display: flex; gap: 14px; font-family: "JetBrains Mono", monospace; font-size: 19px; color: var(--muted); }
+  .meta span { border: 1px solid var(--line); border-radius: 4px; padding: 7px 12px; }
+  .meta .on { color: var(--fg); }
+  .meta .on::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); margin-right: 9px; vertical-align: 1px; }
+  .vault { border: 1px solid var(--line); border-radius: 6px; background: rgba(20,20,23,.85); padding: 22px 24px; font-family: "JetBrains Mono", monospace; font-size: 17px; line-height: 2; color: var(--muted); }
+  .vault .top { display: flex; justify-content: space-between; border-bottom: 1px solid var(--line); padding-bottom: 10px; margin-bottom: 10px; }
+  .vault .top b { color: var(--fg); font-weight: 500; }
+  .vault .top i { font-style: normal; color: var(--accent); }
+  .row span { display: inline-block; }
+  .c { color: var(--accent); }
+  .p { color: var(--fg); }
+  .h { background: var(--accent); color: var(--bg); border-radius: 2px; }
+</style>
+</head>
+<body>
+  <div>
+    <p class="eyebrow">BSc Cybersecurity <b>/</b> 2026 <b>/</b> Yangon, Myanmar</p>
+    <h1>Tun Oo Hlaing</h1>
+    <p class="role">Junior security &amp; backend engineer.<br>Building <em>secure, reliable backends</em>.</p>
+    <p class="meta"><span class="on">available now</span><span>rust</span><span>python</span><span>aes-gcm</span></p>
+  </div>
+  <div class="vault" aria-hidden="true">
+    <div class="top"><b>message.bin</b><i>encrypting</i></div>
+    <div class="row">0000 <span class="c">9f 3a c1 07</span> <span class="c">e2 5b 88 d4</span></div>
+    <div class="row">0008 <span class="c">71 0c 4e b9</span> <span class="c">2d f6 13 a0</span></div>
+    <div class="row">0010 <span class="c">c8 64 1f</span> <span class="h">20</span> <span class="p">62 75 69 6c</span></div>
+    <div class="row">0018 <span class="p">64 69 6e 67</span> <span class="p">20 73 65 63</span></div>
+    <div class="row">0020 <span class="p">75 72 65 2c</span> <span class="p">20 74 68 6f</span></div>
+    <div class="top" style="border-bottom:0;border-top:1px solid var(--line);padding:10px 0 0;margin:10px 0 0"><span>nonce 7f3a9c…</span><span>tag —</span></div>
+  </div>
+</body>
+</html>

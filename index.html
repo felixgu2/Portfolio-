@@ -3,14 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-</head>
-<body>
-<title>Tun Oo Hlaing</title>
+<title>Tun Oo Hlaing | Junior Security &amp; Backend Engineer</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Tun Oo Hlaing: cybersecurity graduate building secure, thoughtful software. Open to junior security engineer, software engineer and backend developer roles.">
+<meta name="description" content="Tun Oo Hlaing, 2026 BSc Cybersecurity graduate building secure backends: encrypted storage in Rust, APIs in Python. Open to junior security, software and backend roles in Myanmar or Singapore.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tun Oo Hlaing | Junior Security &amp; Backend Engineer">
+<meta property="og:description" content="Cybersecurity graduate building secure backends. Encrypted storage in Rust, APIs in Python. Available now.">
+<meta property="og:image" content="/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Tun Oo Hlaing, junior security and backend engineer">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230e0e10'/%3E%3Cpath d='M9 11l5 5-5 5M16.5 21h7' fill='none' stroke='%23a3bc9d' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
+</head>
+<body>
 <style>
 /* Layout: a developer's notebook. One calm column; on wide screens each section gets a narrow
    left margin for its § label and marginal notes, with the content to the right. Dark by default. */
@@ -217,6 +226,215 @@ a:hover .arrow.ne { transform: translate(2px, -2px); }
 .facts dt { font-family: var(--f-mono); font-size: var(--t-xs); color: var(--muted); }
 .facts dd { margin: 4px 0 0; font-size: var(--t-sm); }
 
+/* At a glance: the six things a recruiter checks first, right under the hero */
+.glance { padding-block: 0 clamp(56px, 8vw, 96px); }
+.glance dl { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+@media (min-width: 640px) { .glance dl { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1040px) { .glance dl { grid-template-columns: repeat(6, minmax(0, 1fr)); } .glance dl div + div { border-left: 1px solid var(--line); padding-left: 18px; } }
+.glance dl div { padding: 16px 14px 16px 0; min-width: 0; }
+.glance dt { font-family: var(--f-mono); font-size: var(--t-xs); color: var(--muted); }
+.glance dd { margin: 6px 0 0; font-size: var(--t-sm); color: var(--fg); line-height: 1.45; }
+
+/* Case study: opens inside its project card (progressive disclosure, keyboard and screen-reader friendly) */
+.case { border-top: 1px dashed var(--line); padding-top: 18px; }
+.project { scroll-margin-top: 24px; }
+
+/* ---------- Project deck: cards on a slowly drifting 3D ring.
+   Always a dark stage (in both themes) so the paper project cards stand out. ---------- */
+.deck {
+  --card-w: 224px; --card-h: 326px;
+  position: relative; height: clamp(440px, 50vw, 600px); margin-top: 40px;
+  perspective: 1500px; perspective-origin: 50% 42%;
+  overflow: hidden; touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none;
+  background: radial-gradient(120% 90% at 50% 38%, #18181c 0%, #0b0b0d 72%);
+  border-block: 1px solid #24242a;
+}
+.deck.dragging { cursor: grabbing; }
+@media (max-width: 640px) { .deck { --card-w: 176px; --card-h: 252px; height: 410px; } }
+.deck-ring { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform-style: preserve-3d; }
+.d-card {
+  position: absolute; left: calc(var(--card-w) / -2); top: calc(var(--card-h) / -2);
+  width: var(--card-w); height: var(--card-h); border-radius: 14px; overflow: hidden;
+  box-shadow: 0 24px 48px -22px rgba(0, 0, 0, 0.8);
+  will-change: transform, opacity;
+}
+
+/* project card: light "paper" in both themes, with its own colour tokens */
+.d-proj {
+  --bg: #f3f3ef; --raise: #fafaf7; --fg: #1c1d1a; --muted: #55584f; --faint: #9a9c94; --line: #d6d7cf;
+  --accent: #46643f; --accent-soft: rgba(70, 100, 63, 0.12);
+  display: flex; flex-direction: column; gap: 8px; padding: 16px 16px 14px; margin: 0; border: 0;
+  background: linear-gradient(180deg, #fbfbf8 0%, #ecebe5 100%); color: var(--fg);
+  font: inherit; text-align: left; cursor: pointer;
+}
+.d-proj:focus-visible { outline: 2px solid #a3bc9d; outline-offset: 4px; }
+.d-proj > * { flex-shrink: 0; } /* never squeeze the text; the preview takes what's left */
+.d-proj > .d-pv { flex-shrink: 1; min-height: 0; overflow: hidden; }
+.d-kick { font-family: var(--f-mono); font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.d-title { font-family: var(--f-display); font-size: 30px; line-height: 1; color: var(--fg); }
+.d-sum { font-size: 13px; line-height: 1.4; color: var(--fg); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.d-pv { margin-top: auto; border: 1px solid var(--line); border-radius: 8px; padding: 4px; background: var(--raise); }
+.d-pv .pv { width: 100%; }
+.d-open { display: flex; justify-content: space-between; gap: 8px; font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.d-role { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.d-go { flex: none; color: var(--accent); }
+@media (max-width: 640px) {
+  .d-proj { padding: 12px; gap: 6px; }
+  .d-title { font-size: 23px; }
+  .d-sum { font-size: 12px; -webkit-line-clamp: 2; }
+  .d-role { display: none; }
+  .d-open { justify-content: flex-end; }
+}
+
+/* decorative cards, in the site palette */
+.d-deco { border: 1px solid rgba(236, 231, 222, 0.06); }
+.dk-hex { background: #131316; color: #a3bc9d; font-family: var(--f-mono); font-size: 12px; line-height: 1.75; padding: 14px 16px; white-space: pre; }
+.dk-dots { background: radial-gradient(circle, #0e0e10 26%, transparent 28%) 0 0 / 30px 30px, #a3bc9d; }
+.dk-stripes { background: repeating-linear-gradient(135deg, #a3bc9d 0 16px, #18181c 16px 32px); }
+.dk-rings { background: repeating-radial-gradient(circle at 50% 62%, #a3bc9d 0 2px, transparent 2px 15px), #131316; }
+.dk-checker { background: conic-gradient(#ece7de 25%, #a3bc9d 0 50%, #ece7de 0 75%, #a3bc9d 0) 0 0 / 48px 48px; }
+.dk-grid { background: linear-gradient(#2a2a31 1px, transparent 1px) 0 0 / 22px 22px, linear-gradient(90deg, #2a2a31 1px, transparent 1px) 0 0 / 22px 22px, #121215; }
+.dk-glyph { display: grid; place-items: center; }
+.dk-glyph svg { width: 58%; height: auto; fill: none; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.dk-ink { background: #16161a; } .dk-ink svg { stroke: #a3bc9d; }
+.dk-sage { background: #a3bc9d; } .dk-sage svg { stroke: #0e0e10; }
+.dk-paper { background: #ece7de; } .dk-paper svg { stroke: #46643f; }
+
+/* under the deck: pause control and the plain project list */
+.deck-foot { padding-top: 18px; }
+.deck-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 16px; font-family: var(--f-mono); font-size: var(--t-xs); color: var(--muted); }
+.deck-index { margin-top: 22px; border-top: 1px solid var(--line); }
+.di-row {
+  width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; align-items: baseline;
+  padding: 16px 0; margin: 0; border: 0; border-bottom: 1px solid var(--line); background: none;
+  color: var(--fg); font: inherit; text-align: left; cursor: pointer;
+}
+.di-title { font-family: var(--f-display); font-size: 1.6rem; line-height: 1.1; transition: color var(--dur-base) ease; }
+.di-meta { grid-column: 1; font-family: var(--f-mono); font-size: var(--t-xs); color: var(--muted); }
+.di-open { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-family: var(--f-mono); font-size: var(--t-sm); color: var(--accent); }
+.di-row:hover .di-title { color: var(--accent); }
+.di-row:hover .arrow { transform: translateX(3px); }
+
+/* ---------- Project details window ---------- */
+.p-dialog {
+  width: min(780px, calc(100vw - 32px)); max-height: calc(100dvh - 48px); padding: 0;
+  border: 1px solid var(--line); border-radius: 14px; background: var(--bg); color: var(--fg);
+  overflow: auto; overscroll-behavior: contain;
+}
+.p-dialog::backdrop { background: rgba(5, 5, 7, 0.64); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.p-dialog[open] { animation: pd-in 460ms var(--ease-out) both; }
+.p-dialog[open]::backdrop { animation: pv-in 300ms ease both; }
+.p-dialog.closing { animation: pd-out 200ms ease both; }
+@keyframes pd-in { from { opacity: 0; transform: translateY(28px) scale(0.97); } to { opacity: 1; transform: none; } }
+@keyframes pd-out { to { opacity: 0; transform: translateY(14px) scale(0.98); } }
+.pd-top {
+  position: sticky; top: 0; z-index: 1; display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  padding: 12px clamp(18px, 4vw, 36px); background: var(--bg); border-bottom: 1px solid var(--line);
+}
+.pd-kicker { font-family: var(--f-mono); font-size: var(--t-xs); color: var(--muted); }
+.pd-body { padding: 22px clamp(18px, 4vw, 36px) 34px; }
+.pd-article { display: grid; gap: 22px; }
+.pd-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; font-family: var(--f-mono); font-size: var(--t-xs); color: var(--muted); }
+.pd-meta .p-role { color: var(--accent); }
+.pd-title { font-size: var(--t-xl); margin-top: -8px; }
+.pd-article .pv-fig { max-width: 380px; }
+
+/* Click a project to slide its details down. The panel animates its height (grid rows 0fr -> 1fr)
+   while the content fades and slides in; closing reverses it. */
+.project { cursor: pointer; }
+.project .p-more { cursor: auto; }
+.project .p-head h3 { transition: color var(--dur-base) ease; }
+.project:hover .p-head h3, .project.open .p-head h3 { color: var(--accent); }
+.p-toggle {
+  justify-self: start; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 16px;
+  border: 1px solid var(--line); border-radius: 4px; background: transparent; color: var(--fg); cursor: pointer;
+  font-family: var(--f-mono); font-size: var(--t-sm);
+  transition: border-color var(--dur-quick) ease, background-color var(--dur-quick) ease;
+}
+.p-toggle:hover, .project:hover .p-toggle { border-color: var(--faint); }
+.project.open .p-toggle { background: var(--accent-soft); border-color: var(--accent); }
+.p-toggle .chev { color: var(--accent); display: inline-block; transition: transform var(--dur-base) var(--ease-out); }
+.project:hover:not(.open) .p-toggle .chev { transform: translateY(2px); }
+.project.open .p-toggle .chev { transform: rotate(180deg); }
+.p-more {
+  display: grid; grid-template-rows: 0fr; margin-top: -18px; /* cancels the card's gap while closed */
+  align-self: start; /* without this the negative margin stretches the closed panel to 18px */
+  transition: grid-template-rows 520ms var(--ease-out), margin-top 520ms var(--ease-out);
+}
+.p-more-inner {
+  min-height: 0; overflow: hidden; display: grid; gap: 22px;
+  padding: 4px; margin: -4px; /* room for keyboard focus rings inside */
+  opacity: 0; transform: translateY(-12px);
+  transition: opacity 260ms ease, transform 520ms var(--ease-out);
+}
+.project.open .p-more { grid-template-rows: 1fr; margin-top: 0; }
+.project.open .p-more-inner { opacity: 1; transform: none; transition-delay: 90ms; }
+
+/* Project previews: one small illustrative animation per card. Complete at rest; plays once on scroll. */
+.p-top { display: grid; gap: 18px; }
+@media (min-width: 900px) { .p-top { grid-template-columns: minmax(0, 1fr) 232px; gap: 28px; align-items: start; } }
+.pv-fig { margin: 0; max-width: 320px; }
+.pv-frame { border: 1px solid var(--line); border-radius: 6px; padding: 8px; background: color-mix(in srgb, var(--raise) 70%, transparent); }
+.pv { display: block; width: 100%; height: auto; overflow: visible; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.pv text { font-family: var(--f-mono); font-size: 12px; fill: var(--muted); stroke: none; }
+.pv text.fg { fill: var(--fg); }
+.pv .g { stroke: var(--line); stroke-width: 1.2; }
+.pv .grid { opacity: 0.6; }
+.pv .m { stroke: var(--muted); stroke-width: 1.4; }
+.pv .f { stroke: var(--fg); stroke-width: 1.4; }
+.pv .a { stroke: var(--accent); stroke-width: 1.6; }
+.pv .af { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.4; }
+.pv .dotf { fill: var(--fg); stroke: none; }
+.pv .dota { fill: var(--accent); stroke: none; }
+.pv .mesh { opacity: 0.75; }
+.pv .route { stroke-dasharray: 1; }
+.pv .sh, .pv .pop, .pv .bar, .pv .done { transform-box: fill-box; transform-origin: center; }
+.pv .bar { transform-origin: 50% 100%; }
+.pv .pkt, .pv .scanl { opacity: 0; } /* helpers that only appear while playing */
+.pv-fig figcaption { margin-top: 8px; display: flex; justify-content: space-between; align-items: center; gap: 8px; font-family: var(--f-mono); font-size: var(--t-xs); color: var(--muted); }
+
+/* A thin sage line sweeps across the top of each card as it arrives */
+.project { position: relative; }
+.project::before { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: var(--accent); transform: scaleX(0); transform-origin: left; pointer-events: none; }
+
+@keyframes pv-rule { 0% { transform: scaleX(0); opacity: 1; } 60% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(1); opacity: 0; } }
+@keyframes pv-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pv-pkt { 0% { opacity: 0; transform: translateX(0); } 15%, 75% { opacity: 1; } 75% { transform: translateX(30px); } 100% { opacity: 0; transform: translateX(30px); } }
+@keyframes pv-shackle { 0%, 60% { transform: translateY(-7px); } 80% { transform: translateY(1px); } 100% { transform: none; } }
+@keyframes pv-shard { from { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.4); } to { opacity: 1; transform: none; } }
+@keyframes pv-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes pv-pop { 0% { opacity: 0; transform: scale(0); } 70% { opacity: 1; transform: scale(1.15); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes pv-scan { 0% { opacity: 0; transform: translateY(0); } 10%, 85% { opacity: 1; } 100% { opacity: 0; transform: translateY(96px); } }
+@keyframes pv-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+.project.play::before { animation: pv-rule 1100ms var(--ease-out) both; }
+.play .pv-vault .pkt { animation: pv-pkt 900ms ease-in-out 150ms both; }
+.play .pv-vault .shackle { animation: pv-shackle 1200ms var(--ease-out) both; }
+.play .pv-vault .sh { animation: pv-shard 700ms var(--ease-out) both; animation-delay: calc(1150ms + var(--i) * 160ms); }
+.play .pv-walk .route { animation: pv-draw 2400ms cubic-bezier(0.65, 0, 0.35, 1) both; }
+.play .pv .pop { animation: pv-pop 450ms var(--ease-out) both; animation-delay: var(--t); }
+.play .pv-walk .done { animation: pv-in 500ms ease 2300ms both; }
+.play .pv-face .scanl { animation: pv-scan 1200ms ease-in-out both; }
+.play .pv-face .bar { animation: pv-grow 500ms var(--ease-out) both; animation-delay: calc(1300ms + var(--i) * 70ms); }
+.play .pv-face .done { animation: pv-pop 500ms var(--ease-out) 2100ms both; }
+.case summary {
+  list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; min-height: 44px;
+  font-family: var(--f-mono); font-size: var(--t-sm); color: var(--fg);
+}
+.case summary::-webkit-details-marker { display: none; }
+.case summary span:first-child { text-decoration: underline; text-decoration-color: var(--faint); text-underline-offset: 4px; transition: text-underline-offset var(--dur-base) ease, text-decoration-color var(--dur-base) ease; }
+.case summary:hover span:first-child { text-underline-offset: 7px; text-decoration-color: var(--accent); }
+.case .chev { color: var(--accent); display: inline-block; transition: transform var(--dur-base) var(--ease-out); }
+.case[open] .chev { transform: rotate(90deg); }
+.case-body { margin: 10px 0 0; display: grid; gap: 18px; }
+.case-row { display: grid; gap: 6px; min-width: 0; }
+@media (min-width: 720px) { .case-row { grid-template-columns: 120px minmax(0, 1fr); gap: 20px; } }
+.case-row dt { font-family: var(--f-mono); font-size: var(--t-xs); color: var(--muted); padding-top: 2px; }
+.case-row dd { margin: 0; font-size: var(--t-sm); max-width: 62ch; min-width: 0; }
+.case-row .p-points { color: var(--fg); }
+.closing b { color: var(--fg); font-weight: 600; }
+a:hover .arrow.dn { transform: translateY(3px); }
+
 /* Projects: each card is a notebook entry. The margin holds the facts (year, context, role);
    the body holds the work, with a small numbered figure showing how it works.
    Cards are not links, so they get no hover lift that would suggest a click. */
@@ -361,6 +579,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   content: ""; position: absolute; inset: 0; border-radius: 3px; padding: 1px; pointer-events: none;
   background: conic-gradient(from var(--trail-angle), transparent 0 78%, color-mix(in srgb, var(--accent) 35%, transparent) 88%, var(--accent) 95%, transparent 100%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor; mask-composite: exclude;
   opacity: 0; transition: opacity var(--dur-reveal) ease;
 }
@@ -404,10 +623,11 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <div>
       <p class="eyebrow intro" style="--d: 0ms"><span>BSc Cybersecurity</span><span>Class of 2026</span><span>Yangon, Myanmar</span></p>
       <h1 id="hero-name"><span class="w"><span style="--i: 0">Tun</span></span> <span class="w"><span style="--i: 1">Oo</span></span> <span class="w"><span style="--i: 2">Hlaing</span></span></h1>
-      <p class="position intro" style="--d: 560ms">Cybersecurity graduate building <em>secure, thoughtful</em> software.</p>
-      <p class="seeking intro" style="--d: 680ms">Open to junior security engineer, software engineer and backend developer roles in Myanmar or Singapore.</p>
+      <p class="position intro" style="--d: 560ms">Cybersecurity graduate building <em>secure, reliable backends</em>.</p>
+      <p class="seeking intro" style="--d: 680ms">Encrypted storage in Rust, APIs in Python, real-time systems. Open to junior security, software and backend roles in Myanmar or Singapore.</p>
       <div class="cta intro" style="--d: 800ms">
         <a class="btn primary" href="#contact">Contact <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="btn" href="#work">See projects <span class="arrow dn" aria-hidden="true">↓</span></a>
         <p class="status"><span class="dot" aria-hidden="true"></span><span><b>Available now</b> · open to roles</span></p>
       </div>
     </div>
@@ -421,6 +641,18 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     </figure>
   </section>
 
+  <!-- At a glance: what a recruiter checks first -->
+  <section class="wrap glance" aria-label="At a glance">
+    <dl>
+      <div><dt>roles</dt><dd>Junior security, software or backend</dd></div>
+      <div><dt>degree</dt><dd>BSc Cybersecurity, UOW, 2026</dd></div>
+      <div><dt>based in</dt><dd>Yangon, Myanmar</dd></div>
+      <div><dt>open to</dt><dd>Myanmar or Singapore</dd></div>
+      <div><dt>available</dt><dd>Now, immediate start</dd></div>
+      <div><dt>languages</dt><dd>English, Burmese</dd></div>
+    </dl>
+  </section>
+
   <!-- About -->
   <section class="sec" id="about" aria-labelledby="about-h">
     <div class="wrap sec-grid">
@@ -428,6 +660,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <p class="label"><span class="sym sym-fingerprint" aria-hidden="true"><svg viewBox="0 0 24 24"><path pathLength="1" d="M4.6 15.5c.3-1.1.4-2.3.4-3.5a7 7 0 0 1 14 0c0 1.9-.2 3.7-.6 5.4"/><path pathLength="1" d="M7.3 18.6c.8-1.9 1.2-4.2 1.2-6.6a3.5 3.5 0 0 1 7 0c0 1.4-.1 2.8-.4 4.1"/><path pathLength="1" d="M12 12c0 3.1-.6 5.9-1.8 8.2"/><path pathLength="1" d="M14.4 18.8c-.3.9-.7 1.7-1.1 2.4"/><line class="scan" x1="3" y1="5" x2="21" y2="5"/></svg></span>about</p>
         <p class="note-m"><b>BSc Computer Science</b>Cybersecurity major<br>University of Wollongong<br>Graduated 2026</p>
         <p class="note-m"><b>Diploma in IT</b>SIM Global Education<br>Oct 2023 – Sep 2024</p>
+        <p class="note-m"><b>Impetus Award</b>Recognition</p>
       </div>
       <div class="body reveal">
         <h2 id="about-h">Building software <em>people can trust</em>.</h2>
@@ -436,13 +669,6 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <p>Security interests me because it asks you to be precise. A system is only as safe as its weakest assumption, so you learn to question every one. Cryptography is where that precision matters most: in SecureVault, a single changed byte is enough for authenticated encryption to refuse the file.</p>
           <p class="quiet">I like building things end to end, from encryption logic in Rust to a full-stack app shipped in two days. I'm now back home in Yangon and looking for my first role, where I can keep learning from people who care about doing things properly.</p>
         </div>
-        <dl class="facts">
-          <div><dt>looking for</dt><dd>Junior security, software or backend roles</dd></div>
-          <div><dt>based in</dt><dd>Yangon, Myanmar</dd></div>
-          <div><dt>will work in</dt><dd>Myanmar or Singapore</dd></div>
-          <div><dt>languages</dt><dd>English, Burmese</dd></div>
-          <div><dt>recognition</dt><dd>Impetus Award</dd></div>
-        </dl>
       </div>
     </div>
   </section>
@@ -456,10 +682,35 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       </div>
       <div class="body reveal">
         <h2 id="work-h">Things I've <em>built</em>.</h2>
-        <ul class="projects" id="project-list"></ul>
+        <p class="lead">Spin the deck, then pick a project card to open it.</p>
+      </div>
+    </div>
+
+    <!-- Project deck: cards on a slowly drifting 3D ring -->
+    <div class="deck" id="deck" aria-label="Project deck">
+      <div class="deck-ring" id="deck-ring"></div>
+    </div>
+
+    <div class="wrap sec-grid deck-foot">
+      <div class="margin" aria-hidden="true"></div>
+      <div class="body">
+        <div class="deck-bar">
+          <span>move your cursor to steer · drag or swipe to spin · tab to a card to bring it forward</span>
+          <button class="mini" id="deck-pause" type="button" aria-label="Pause the deck">pause</button>
+        </div>
+        <ul class="deck-index" id="project-list" aria-label="All projects"></ul>
         <p class="after">More code on <a class="u" href="https://github.com/felixgu2" target="_blank" rel="noopener">github.com/felixgu2</a> <span class="arrow ne" aria-hidden="true">↗</span></p>
       </div>
     </div>
+
+    <!-- Project details window -->
+    <dialog class="p-dialog" id="p-dialog" aria-labelledby="pd-title">
+      <div class="pd-top">
+        <span class="pd-kicker">project details</span>
+        <button class="mini" id="pd-close" type="button" aria-label="Close project details">close ✕</button>
+      </div>
+      <div class="pd-body" id="pd-body"></div>
+    </dialog>
   </section>
 
   <!-- Skills -->
@@ -514,7 +765,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
             <dd><a href="https://www.linkedin.com/in/tun-oo-hlaing-45559a433" target="_blank" rel="noopener"><span>in/tun-oo-hlaing-45559a433</span> <span class="arrow ne" aria-hidden="true">↗</span></a></dd>
           </div>
         </dl>
-        <p class="closing">I reply to every message. Based in Yangon, available to start now, and happy to relocate to Singapore for the right team.</p>
+        <p class="closing"><b>Hiring?</b> Email is the fastest way to reach me. I'm based in Yangon, available to start now, and happy to relocate to Singapore for the right team.</p>
       </div>
     </div>
   </section>
@@ -534,11 +785,18 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           Leave it out (or []) to show no figure.
    links: add { label: "GitHub", href: "https://github.com/..." }
           or { label: "Demo", href: "https://..." }. Empty = no links shown.
+   preview: "vault", "walk" or "face" picks the small animated picture on the card.
+          Leave it out to show no picture.
+   caseStudy: the longer story, shown when someone opens the card.
+          problem, part (your role), decisions (list), outcome.
+          Optional extras: team ("3 people"), reflection ("What I'd do differently").
+          Each project also gets a link: yoursite/#securevault, #walklymiles, …
    ========================================================== */
 const PROJECTS = [
   {
     title: "SecureVault",
-    year: "2023 – 2024",
+    preview: "vault",
+    year: "2026",
     context: "Academic project",
     role: "Backend developer",
     summary: "An encrypted file vault desktop app built with Rust and Tauri, with streaming encryption so large files never have to fit in memory.",
@@ -549,10 +807,21 @@ const PROJECTS = [
       "Rebuilt the fragmentation and reconstruction logic around streaming I/O for large files."
     ],
     stack: ["Rust", "Tauri", "AES-256-GCM", "Shamir's Secret Sharing", "Streaming I/O"],
-    links: []
+    links: [],
+    caseStudy: {
+      problem: "Sensitive files on disk are only as safe as their weakest copy. The aim was a vault where files are encrypted, split into separate fragments, and any tampering is detected.",
+      part: "Backend developer on an academic team. I wrote the backend in Rust, built the fragmentation and reconstruction logic, upgraded it to streaming I/O for large files, and contributed to the security design, architecture documentation and project presentation.",
+      decisions: [
+        "AES-256-GCM, an authenticated cipher: a single changed byte makes decryption fail instead of returning corrupted data.",
+        "Shamir's Secret Sharing to split encrypted data into fragments stored separately on disk, so one fragment on its own reveals nothing.",
+        "Streaming I/O, so files are processed in chunks and large files never have to fit in memory."
+      ],
+      outcome: "A working desktop vault (Rust and Tauri) with large-file support, delivered with architecture documentation and a project presentation."
+    }
   },
   {
     title: "WalklyMiles",
+    preview: "walk",
     year: "2026",
     context: "Hackathon · built in 2 days",
     role: "Co-developer",
@@ -563,10 +832,21 @@ const PROJECTS = [
       "Built end to end with one teammate inside the 2-day window."
     ],
     stack: ["Python", "Flask", "Supabase", "PostgreSQL", "AI coach"],
-    links: []
+    links: [],
+    caseStudy: {
+      problem: "Many people want to walk more but lose motivation. The idea was to make walking feel like a game, with an AI coach that keeps people going.",
+      part: "Co-developer in a team of two, jointly responsible for the whole app end to end within the 2-day hackathon.",
+      decisions: [
+        "Flask with Supabase (PostgreSQL) to get a full-stack app running quickly without managing our own database server.",
+        "A quest and mission engine with location-based badges, so every walk has a goal.",
+        "Weather-aware activity planning and an AI coach to suggest when and where to walk."
+      ],
+      outcome: "A working full-stack app, built within the 2-day hackathon window."
+    }
   },
   {
     title: "Face Recognition Login",
+    preview: "face",
     year: "2023 – 2024",
     context: "Academic project",
     role: "Developer",
@@ -577,7 +857,17 @@ const PROJECTS = [
       "FAISS index for fast nearest-neighbour lookups; served with FastAPI, desktop UI in Tkinter."
     ],
     stack: ["Python", "OpenCV", "InsightFace / ArcFace", "FAISS", "FastAPI", "Tkinter"],
-    links: []
+    links: [],
+    caseStudy: {
+      problem: "Passwords get reused and stolen. This project logs people in with their face instead, using only a standard webcam.",
+      part: "Developer. I built the face capture, embedding generation and real-time verification, plus the FAISS index used for lookups.",
+      decisions: [
+        "InsightFace / ArcFace to turn each face into an embedding vector, so faces are compared by distance rather than raw pixels.",
+        "A FAISS index for fast nearest-neighbour search across enrolled users.",
+        "FastAPI for the backend service and a Tkinter desktop interface for capture and login."
+      ],
+      outcome: "Real-time face verification from a standard webcam."
+    }
   }
 ];
 
@@ -615,35 +905,273 @@ function el(tag, attrs, children) {
 }
 function tags(list) { return el("div", { class: "tags" }, list.map(t => el("span", { class: "tag", text: t }))); }
 
-const projectList = document.getElementById("project-list");
-let figNo = 2; // fig. 1 is the curve in the hero
-PROJECTS.forEach(p => {
-  const links = (p.links || []).filter(l => l && l.href);
-  const flow = p.flow && p.flow.length ? el("figure", { class: "flow-fig" }, [
+/* Small illustrative previews for project cards (see "preview" in PROJECTS) */
+const PREVIEWS = {
+  vault: "<svg class=\"pv pv-vault\" viewBox=\"0 0 220 140\" aria-hidden=\"true\"><rect class=\"g\" x=\"150\" y=\"16\" width=\"58\" height=\"28\" rx=\"4\"/><rect class=\"g\" x=\"150\" y=\"56\" width=\"58\" height=\"28\" rx=\"4\"/><rect class=\"g\" x=\"150\" y=\"96\" width=\"58\" height=\"28\" rx=\"4\"/><path class=\"f\" d=\"M16 44h24l10 10v40H16z\"/><path class=\"f\" d=\"M40 44v10h10\"/><path class=\"g\" d=\"M22 64h20M22 71h20M22 78h13\"/><circle class=\"pkt dota\" cx=\"58\" cy=\"76\" r=\"3\"/><path class=\"shackle a\" d=\"M90 62v-8a11 11 0 0 1 22 0v8\"/><rect class=\"a\" x=\"84\" y=\"62\" width=\"34\" height=\"28\" rx=\"4\"/><circle class=\"dota\" cx=\"101\" cy=\"74\" r=\"2.6\"/><path class=\"a\" d=\"M101 76v6\"/><rect class=\"sh af\" style=\"--i:0;--dx:-78px;--dy:46px\" x=\"157\" y=\"23\" width=\"44\" height=\"14\" rx=\"2\"/><rect class=\"sh af\" style=\"--i:1;--dx:-78px;--dy:6px\" x=\"157\" y=\"63\" width=\"44\" height=\"14\" rx=\"2\"/><rect class=\"sh af\" style=\"--i:2;--dx:-78px;--dy:-34px\" x=\"157\" y=\"103\" width=\"44\" height=\"14\" rx=\"2\"/><text x=\"33\" y=\"114\" text-anchor=\"middle\">file</text><text x=\"101\" y=\"110\" text-anchor=\"middle\">aes-gcm</text><text x=\"179\" y=\"139\" text-anchor=\"middle\">fragments</text></svg>",
+  walk: "<svg class=\"pv pv-walk\" viewBox=\"0 0 220 140\" aria-hidden=\"true\"><path class=\"g grid\" d=\"M0 35h220M0 70h220M0 105h220M55 0v140M110 0v140M165 0v140\"/><path class=\"g\" d=\"M20 118 C 48 118, 50 82, 84 80 S 118 46, 148 48 S 192 36, 198 22\" stroke-dasharray=\"2 5\"/><path class=\"route a\" pathLength=\"1\" d=\"M20 118 C 48 118, 50 82, 84 80 S 118 46, 148 48 S 192 36, 198 22\"/><circle class=\"dota\" cx=\"20\" cy=\"118\" r=\"3\"/><g class=\"f\"><circle cx=\"30\" cy=\"24\" r=\"6\"/><path d=\"M30 12.5v-3M30 38.5v-3M18.5 24h-3M44.5 24h-3\"/></g><g class=\"pop\" style=\"--t:1050ms\"><circle class=\"af\" cx=\"84\" cy=\"80\" r=\"8\"/><path class=\"a\" d=\"M80.5 80l2.5 2.5 4.5-5\"/></g><g class=\"pop\" style=\"--t:1400ms\"><circle class=\"af\" cx=\"148\" cy=\"48\" r=\"8\"/><path class=\"a\" d=\"M144.5 48l2.5 2.5 4.5-5\"/></g><circle class=\"walker dotf\" cx=\"198\" cy=\"22\" r=\"5\"/><text class=\"done\" x=\"212\" y=\"134\" text-anchor=\"end\">badge unlocked</text></svg>",
+  face: "<svg class=\"pv pv-face\" viewBox=\"0 0 220 140\" aria-hidden=\"true\"><path class=\"m\" d=\"M66 10H52v14M154 10h14v14M66 106H52V92M154 106h14V92\"/><ellipse class=\"f\" cx=\"110\" cy=\"56\" rx=\"27\" ry=\"33\"/><path class=\"f\" d=\"M100 72q10 7 20 0\"/><circle class=\"dotf\" cx=\"100\" cy=\"50\" r=\"2\"/><circle class=\"dotf\" cx=\"120\" cy=\"50\" r=\"2\"/><path class=\"a pop mesh\" style=\"--t:1000ms\" d=\"M100 50L120 50L110 61Z M100 72L110 61L120 72\"/><circle class=\"dota pop\" style=\"--t:700ms\" cx=\"100\" cy=\"50\" r=\"2.6\"/><circle class=\"dota pop\" style=\"--t:760ms\" cx=\"120\" cy=\"50\" r=\"2.6\"/><circle class=\"dota pop\" style=\"--t:820ms\" cx=\"110\" cy=\"61\" r=\"2.6\"/><circle class=\"dota pop\" style=\"--t:880ms\" cx=\"100\" cy=\"72\" r=\"2.6\"/><circle class=\"dota pop\" style=\"--t:940ms\" cx=\"120\" cy=\"72\" r=\"2.6\"/><line class=\"scanl a\" x1=\"56\" y1=\"12\" x2=\"164\" y2=\"12\"/><rect class=\"bar af\" style=\"--i:0\" x=\"180\" y=\"48\" width=\"4\" height=\"22\" rx=\"1\"/><rect class=\"bar af\" style=\"--i:1\" x=\"186\" y=\"36\" width=\"4\" height=\"34\" rx=\"1\"/><rect class=\"bar af\" style=\"--i:2\" x=\"192\" y=\"56\" width=\"4\" height=\"14\" rx=\"1\"/><rect class=\"bar af\" style=\"--i:3\" x=\"198\" y=\"42\" width=\"4\" height=\"28\" rx=\"1\"/><rect class=\"bar af\" style=\"--i:4\" x=\"204\" y=\"52\" width=\"4\" height=\"18\" rx=\"1\"/><rect class=\"bar af\" style=\"--i:5\" x=\"210\" y=\"40\" width=\"4\" height=\"30\" rx=\"1\"/><g class=\"done\"><rect class=\"af\" x=\"66\" y=\"116\" width=\"88\" height=\"20\" rx=\"10\"/><path class=\"a\" d=\"M74 126l3.5 3.5 6-7\"/><text class=\"fg\" x=\"92\" y=\"130\">verified</text></g></svg>"
+};
+function previewFig(p) {
+  const svg = p.preview && PREVIEWS[p.preview];
+  if (!svg) return null;
+  const frame = el("div", { class: "pv-frame" });
+  frame.innerHTML = svg;
+  const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  return el("figure", { class: "pv-fig" }, [
+    frame,
+    el("figcaption", {}, [
+      el("span", { text: "preview · illustrative" }),
+      still ? null : el("button", { class: "mini pv-replay", type: "button", "aria-label": "Replay the " + p.title + " preview", text: "replay ↻" })
+    ])
+  ]);
+}
+
+/* ---------- Project details (shown in the details window) ---------- */
+function flowFig(p, n) {
+  if (!p.flow || !p.flow.length) return null;
+  return el("figure", { class: "flow-fig" }, [
     el("ol", { class: "flow", "aria-label": "How " + p.title + " works, step by step" },
       p.flow.map((step, i) => el("li", { style: "--i: " + i }, [el("b", { text: step })]))),
-    el("figcaption", {}, [el("b", { text: "fig. " + (figNo++) }), document.createTextNode(" how " + p.title + " works")])
-  ]) : null;
-  projectList.appendChild(el("li", { class: "project" }, [
-    el("div", { class: "p-meta" }, [
-      el("span", { class: "yr", text: p.year }),
-      el("span", { text: p.context }),
-      el("span", { class: "p-role", text: p.role })
-    ]),
-    el("div", { class: "p-body" }, [
-      el("div", { class: "p-head" }, [el("h3", { text: p.title }), el("p", { class: "p-sum", text: p.summary })]),
-      flow,
-      p.points && p.points.length ? el("div", {}, [
-        el("p", { class: "p-sub", text: "what I did" }),
-        el("ul", { class: "p-points" }, p.points.map(t => el("li", { text: t })))
-      ]) : null,
-      el("div", {}, [el("p", { class: "p-sub", text: "stack" }), tags(p.stack)]),
-      links.length ? el("div", { class: "p-links" }, links.map(l =>
-        el("a", { href: l.href, target: "_blank", rel: "noopener" }, [el("span", { text: l.label }), document.createTextNode(" "), el("span", { class: "arrow ne", "aria-hidden": "true", text: "↗" })])
-      )) : null
+    el("figcaption", {}, [el("b", { text: "fig. " + n }), document.createTextNode(" how " + p.title + " works")])
+  ]);
+}
+function buildDetail(p, index) {
+  const links = (p.links || []).filter(l => l && l.href);
+  return el("article", { class: "pd-article play-scope" }, [
+    el("p", { class: "pd-meta" }, [el("span", { text: p.year }), el("span", { text: p.context }), el("span", { class: "p-role", text: p.role })]),
+    el("h2", { class: "pd-title", id: "pd-title", text: p.title }),
+    el("p", { class: "p-sum", text: p.summary }),
+    previewFig(p),
+    flowFig(p, index + 2),
+    p.points && p.points.length ? el("div", {}, [
+      el("p", { class: "p-sub", text: "what I did" }),
+      el("ul", { class: "p-points" }, p.points.map(t => el("li", { text: t })))
+    ]) : null,
+    caseStudy(p),
+    el("div", {}, [el("p", { class: "p-sub", text: "stack" }), tags(p.stack)]),
+    links.length ? el("div", { class: "p-links" }, links.map(l =>
+      el("a", { href: l.href, target: "_blank", rel: "noopener" }, [el("span", { text: l.label }), document.createTextNode(" "), el("span", { class: "arrow ne", "aria-hidden": "true", text: "↗" })])
+    )) : null
+  ]);
+}
+
+function slug(t) { return t.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); }
+
+function caseStudy(p) {
+  const c = p.caseStudy;
+  if (!c) return null;
+  const row = (label, content) => content ? el("div", { class: "case-row" }, [el("dt", { text: label }), el("dd", {}, [content])]) : null;
+  const text = t => t ? document.createTextNode(t) : null;
+  return el("div", { class: "case" }, [
+    el("p", { class: "p-sub", text: "case study" }),
+    el("dl", { class: "case-body" }, [
+      row("the problem", text(c.problem)),
+      row("my part", text(c.part)),
+      row("team", text(c.team)),
+      row("key decisions", c.decisions && c.decisions.length ? el("ul", { class: "p-points" }, c.decisions.map(d => el("li", { text: d }))) : null),
+      row("outcome", text(c.outcome)),
+      row("looking back", text(c.reflection))
     ])
-  ]));
-});
+  ]);
+}
+
+
+/* ---------- Project deck: 3D ring of cards + details window ---------- */
+const deckApi = (function () {
+  const deckEl = document.getElementById("deck"), ring = document.getElementById("deck-ring");
+  const dlg = document.getElementById("p-dialog"), pdBody = document.getElementById("pd-body");
+  const pauseBtn = document.getElementById("deck-pause"), list = document.getElementById("project-list");
+  const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* --- open / close a project --- */
+  let windowOpen = false;
+  function openProject(i) {
+    const p = PROJECTS[i];
+    const art = buildDetail(p, i);
+    pdBody.replaceChildren(art);
+    dlg.classList.remove("closing");
+    if (!dlg.open) dlg.showModal();
+    windowOpen = true;
+    dlg.scrollTop = 0;
+    try { history.replaceState(null, "", "#" + slug(p.title)); } catch (e) {}
+    if (!still) setTimeout(() => {
+      playCard(art);
+      const f = art.querySelector(".flow-fig");
+      if (f) f.classList.add("run");
+    }, 260);
+  }
+  function closeProject() {
+    if (!dlg.open) return;
+    if (still) { dlg.close(); return; }
+    dlg.classList.add("closing");
+    setTimeout(() => { dlg.classList.remove("closing"); dlg.close(); }, 200);
+  }
+  dlg.addEventListener("close", () => {
+    windowOpen = false;
+    try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {}
+  });
+  dlg.addEventListener("cancel", e => { e.preventDefault(); closeProject(); });   // Esc
+  dlg.addEventListener("click", e => { if (e.target === dlg) closeProject(); });  // click outside
+  document.getElementById("pd-close").addEventListener("click", closeProject);
+
+  /* --- plain list (keyboard, screen readers, quick scan) --- */
+  PROJECTS.forEach((p, i) => {
+    const b = el("button", { class: "di-row", type: "button" }, [
+      el("span", { class: "di-title", text: p.title }),
+      el("span", { class: "di-meta", text: p.year + " · " + p.context + " · " + p.role }),
+      el("span", { class: "di-open" }, [document.createTextNode("open "), el("span", { class: "arrow", "aria-hidden": "true", text: "→" })])
+    ]);
+    b.addEventListener("click", () => openProject(i));
+    list.appendChild(el("li", {}, [b]));
+  });
+
+  /* --- deck cards: 3 projects spread around 9 decorative cards --- */
+  const HEX = () => Array.from({ length: 14 }, () => Array.from({ length: 4 }, () => ((Math.random() * 256) | 0).toString(16).padStart(2, "0")).join(" ")).join("\n");
+  const GLYPH = {
+    lock: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/><path d="M12 14.5v2.5"/></svg>',
+    key: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15.5" r="4"/><path d="M10.9 12.6 19.5 4M16.5 7l2.2 2.2M14.3 9.2l1.6 1.6"/></svg>',
+    terminal: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2"/><path d="M7 10l3 2.5L7 15M12.5 15h4"/></svg>'
+  };
+  const DECO = [
+    { cls: "dk-hex", hex: true }, { cls: "dk-dots" }, { cls: "dk-glyph dk-ink", glyph: "lock" },
+    { cls: "dk-stripes" }, { cls: "dk-glyph dk-sage", glyph: "key" }, { cls: "dk-rings" },
+    { cls: "dk-checker" }, { cls: "dk-glyph dk-paper", glyph: "terminal" }, { cls: "dk-grid" }
+  ];
+  const order = [];               // project, 3 decos, project, 3 decos, project, 3 decos
+  PROJECTS.forEach((p, i) => { order.push({ project: i }); DECO.slice(i * 3, i * 3 + 3).forEach(d => order.push({ deco: d })); });
+
+  const cards = order.map(item => {
+    if (item.project !== undefined) {
+      const p = PROJECTS[item.project];
+      const pv = p.preview && PREVIEWS[p.preview] ? el("div", { class: "d-pv", "aria-hidden": "true" }) : null;
+      if (pv) pv.innerHTML = PREVIEWS[p.preview];
+      const b = el("button", { class: "d-card d-proj", type: "button", "aria-label": "Open " + p.title + ": " + p.summary }, [
+        el("span", { class: "d-kick", text: p.year + " · " + p.context }),
+        el("span", { class: "d-title", text: p.title }),
+        el("span", { class: "d-sum", text: p.summary }),
+        pv,
+        el("span", { class: "d-open" }, [el("span", { class: "d-role", text: p.role }), el("span", { class: "d-go", text: "open →" })])
+      ]);
+      b.addEventListener("click", () => { if (!dragMoved) openProject(item.project); });
+      return b;
+    }
+    const d = el("div", { class: "d-card d-deco " + item.deco.cls, "aria-hidden": "true" });
+    if (item.deco.hex) d.textContent = HEX();
+    if (item.deco.glyph) d.innerHTML = GLYPH[item.deco.glyph];
+    return d;
+  });
+  cards.forEach(c => ring.appendChild(c));
+
+  /* --- ring motion --- */
+  const n = cards.length, step = 360 / n;
+  const LIFT = [-26, 34, -54, 18, 8, -38, 46, -18, -8, 56, -46, 26];
+  const TILT = [-2, 3, -4, 2, 1, -3, 4, -1, -2, 3, -3, 2];
+  let rot = 0, vel = 0, target = null, r = 500, liftScale = 1;
+  let userPaused = still, hovering = false, focusInside = false, dragging = false, dragMoved = false;
+  let visible = true, running = false, raf = 0;
+  let mx = 0, my = 0, tiltX = -7;  // cursor position over the deck (-1..1) and current ring tilt
+
+  function measure() {
+    const w = parseFloat(getComputedStyle(deckEl).getPropertyValue("--card-w")) || 220;
+    r = Math.round((w * 1.36 * n) / (2 * Math.PI));
+    liftScale = innerWidth < 640 ? 0.55 : 1;
+    render();
+  }
+  function render() {
+    ring.style.transform = "translateZ(" + -r + "px) rotateX(" + tiltX.toFixed(2) + "deg)";
+    for (let i = 0; i < n; i++) {
+      const a = ((((i * step + rot) % 360) + 540) % 360) - 180;     // -180..180, 0 = facing you
+      const f = Math.cos((a * Math.PI) / 180);
+      const c = cards[i];
+      c.style.transform = "rotateY(" + a.toFixed(2) + "deg) translateZ(" + r + "px) translateY(" + (LIFT[i % 12] * liftScale) + "px) rotateZ(" + TILT[i % 12] + "deg)" + (Math.abs(a) > 90 ? " rotateY(180deg)" : "");
+      c.style.opacity = (0.32 + 0.68 * Math.pow((f + 1) / 2, 1.7)).toFixed(3);
+      c.style.pointerEvents = f > 0.3 ? "" : "none";
+    }
+  }
+  function frame() {
+    if (target !== null) {
+      const d = target - rot;
+      rot += still ? d : d * 0.12;
+      if (Math.abs(d) < 0.05) { rot = target; target = null; }
+    } else if (!dragging) {
+      rot += vel; vel *= 0.94;
+      if (Math.abs(vel) < 0.01) vel = 0;
+      if (hovering && !still && !windowOpen) {
+        // steer: cursor right of centre brings right-hand cards forward; the middle 36% is a still zone for clicking
+        const dz = 0.18, ax = Math.abs(mx);
+        const s = ax < dz ? 0 : Math.sign(mx) * Math.pow((ax - dz) / (1 - dz), 1.4);
+        rot -= s * 1.1;
+      } else if (!userPaused && !focusInside && !windowOpen && vel === 0) {
+        rot -= 0.06; // slow drift
+      }
+    }
+    const wantTilt = hovering && !still ? -7 - my * 6 : -7;  // cursor up/down tilts the ring a little
+    tiltX += (wantTilt - tiltX) * 0.08;
+    render();
+    raf = requestAnimationFrame(frame);
+  }
+  function start() { if (!running && visible && !document.hidden) { running = true; raf = requestAnimationFrame(frame); } }
+  function stop() { running = false; cancelAnimationFrame(raf); }
+
+  // bring a card to the front (shortest way round)
+  function face(i) { const want = -i * step; target = rot + ((((want - rot) % 360) + 540) % 360) - 180; if (!running) { rot = target; target = null; render(); } }
+
+  // drag / swipe with momentum (vertical page scrolling still works on touch)
+  let lastX = 0, travelled = 0;
+  deckEl.addEventListener("pointerdown", e => {
+    if (e.button !== 0) return;
+    dragging = true; dragMoved = false; travelled = 0; lastX = e.clientX; target = null; vel = 0;
+  });
+  deckEl.addEventListener("pointermove", e => {
+    if (e.pointerType === "mouse") {
+      const b = deckEl.getBoundingClientRect();
+      mx = Math.max(-1, Math.min(1, ((e.clientX - b.left) / b.width) * 2 - 1));
+      my = Math.max(-1, Math.min(1, ((e.clientY - b.top) / b.height) * 2 - 1));
+    }
+    if (!dragging) return;
+    const dx = e.clientX - lastX; lastX = e.clientX; travelled += Math.abs(dx);
+    if (!dragMoved && travelled > 6) { dragMoved = true; deckEl.classList.add("dragging"); try { deckEl.setPointerCapture(e.pointerId); } catch (err) {} }
+    if (dragMoved) { const d = dx * 0.2; rot += d; vel = still ? 0 : d; if (!running) render(); }
+  });
+  const endDrag = () => { if (!dragging) return; dragging = false; deckEl.classList.remove("dragging"); setTimeout(() => { dragMoved = false; }, 0); };
+  deckEl.addEventListener("pointerup", endDrag);
+  deckEl.addEventListener("pointercancel", endDrag);
+  deckEl.addEventListener("pointerenter", e => { if (e.pointerType === "mouse") hovering = true; });
+  deckEl.addEventListener("pointerleave", () => { hovering = false; mx = 0; my = 0; });
+  deckEl.addEventListener("focusin", e => {
+    focusInside = true;
+    const i = cards.indexOf(e.target);
+    if (i >= 0) face(i);
+  });
+  deckEl.addEventListener("focusout", () => { focusInside = false; });
+
+  function syncPause() {
+    pauseBtn.textContent = userPaused ? "play" : "pause";
+    pauseBtn.setAttribute("aria-label", userPaused ? "Let the deck drift" : "Pause the deck");
+  }
+  pauseBtn.addEventListener("click", () => { userPaused = !userPaused; syncPause(); });
+  syncPause();
+  if (still) pauseBtn.hidden = true;
+
+  addEventListener("resize", measure);
+  if ("IntersectionObserver" in window) new IntersectionObserver(es => { visible = es[0].isIntersecting; visible ? start() : stop(); }).observe(deckEl);
+  document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
+  measure();
+  start();
+
+  return { openProject };
+})();
+
+/* Open a project when the page is visited with its link (e.g. #securevault) */
+function openFromHash() {
+  const id = decodeURIComponent(location.hash.slice(1));
+  const i = PROJECTS.findIndex(p => slug(p.title) === id);
+  if (i < 0) return;
+  const go = () => { document.getElementById("work").scrollIntoView({ block: "start", behavior: "instant" }); deckApi.openProject(i); };
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(go);
+}
+addEventListener("hashchange", openFromHash);
+openFromHash();
 
 const skillList = document.getElementById("skill-list");
 SKILLS.forEach(s => {
@@ -736,6 +1264,31 @@ if ("IntersectionObserver" in window) {
   }), { rootMargin: "-45% 0px -50% 0px" });
   document.querySelectorAll("main > section").forEach(s => nio.observe(s));
 }
+
+/* ---------- Project previews: play once as each card scrolls into view; replay on request ---------- */
+function playCard(card) {
+  card.classList.remove("play");
+  void card.offsetWidth; // restart the CSS animations
+  card.classList.add("play");
+  const walker = card.querySelector(".pv-walk .walker"), route = card.querySelector(".pv-walk .route");
+  if (walker && route) {
+    const L = route.getTotalLength(), t0 = performance.now(), D = 2400;
+    const ease = k => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+    const step = now => {
+      const k = Math.min(1, (now - t0) / D), pt = route.getPointAtLength(L * ease(k));
+      walker.setAttribute("cx", pt.x.toFixed(1)); walker.setAttribute("cy", pt.y.toFixed(1));
+      if (k < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+}
+if (!reduceMotion && "IntersectionObserver" in window) {
+  const cio = new IntersectionObserver(entries => entries.forEach(en => {
+    if (en.isIntersecting) { playCard(en.target); cio.unobserve(en.target); }
+  }), { threshold: 0.3 });
+  document.querySelectorAll(".project").forEach(c => cio.observe(c));
+}
+document.addEventListener("click", e => { const b = e.target.closest(".pv-replay"); if (b) playCard(b.closest(".play-scope, .project")); });
 
 /* ---------- Section icons: draw in once as each scrolls into view ---------- */
 if (!reduceMotion && "IntersectionObserver" in window) {
